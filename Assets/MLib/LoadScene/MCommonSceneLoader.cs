@@ -13,7 +13,7 @@ namespace MLib
     {
         static MCommonSceneLoader()
         {
-            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+            //EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
 
         private static void OnPlayModeStateChanged(PlayModeStateChange state)
@@ -25,7 +25,6 @@ namespace MLib
                 Debug.Log("On Exit edit mode");
                 if (!commonScene.isLoaded)
                 {
-                    
                     var asyncCommon = SceneManager.LoadSceneAsync(ConstraintSceneName.Common, LoadSceneMode.Additive);
                     asyncCommon.completed += (x) =>
                     {

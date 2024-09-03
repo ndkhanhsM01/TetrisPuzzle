@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class Extension
 {
@@ -23,4 +24,24 @@ public static class Extension
         Gizmos.DrawWireSphere(position, 0.3f);
     }
     #endregion
+
+    public static void SetAlpha(this Image image, float value)
+    {
+        Color baseColor = image.color;
+        baseColor.a = value;
+        image.color = baseColor;
+    }
+    public static void SetBaseColor(this Image image, Color newColor)
+    {
+        Color baseColor = image.color;
+        baseColor.r = newColor.r;
+        baseColor.g = newColor.g;
+        baseColor.b = newColor.b;
+        image.color = baseColor;
+    }
+
+    public static void SetActive(this MonoBehaviour component, bool active)
+    {
+        component.gameObject.SetActive(active);
+    }
 }

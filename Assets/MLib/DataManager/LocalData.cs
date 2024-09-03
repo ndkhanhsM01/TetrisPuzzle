@@ -5,11 +5,7 @@ namespace MLib
     [System.Serializable]
     public class LocalData
     {
-        #region Data example
-        public int level;
-        public string name;
-        public float power;
-        #endregion
-
+        public bool isPlayMusic = true;
+        public bool isPlaySoundFX = true;
     }
 }
