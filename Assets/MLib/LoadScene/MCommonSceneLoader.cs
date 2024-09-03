@@ -13,7 +13,7 @@ namespace MLib
     {
         static MCommonSceneLoader()
         {
-            //EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
 
         private static void OnPlayModeStateChanged(PlayModeStateChange state)

@@ -30,7 +30,7 @@ namespace MLib
             }
             catch
             {
-                Debug.LogError("Load file failure!");
+                Debug.LogWarning("Load file failure!");
             }
 
             return result;
@@ -47,7 +47,7 @@ namespace MLib
             }
             catch
             {
-                Debug.LogError("Save file failure!");
+                Debug.LogWarning("Save file failure!");
             }
 
         }
