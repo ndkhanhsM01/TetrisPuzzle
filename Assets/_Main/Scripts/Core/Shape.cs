@@ -13,11 +13,6 @@ public class Shape : MonoBehaviour
         Body = transform;
     }
 
-    private void Start()
-    {
-        InvokeRepeating(nameof(MoveDown), 1f, 0.5f);
-    }
-
     private void Move(Vector3 direction)
     {
         Body.position += direction;
@@ -36,6 +31,11 @@ public class Shape : MonoBehaviour
     public void MoveDown()
     {
         Move(Vector3.down);
+    }
+
+    public void MoveUp()
+    {
+        Move(Vector3.up);
     }
 
     public void RotateRight()

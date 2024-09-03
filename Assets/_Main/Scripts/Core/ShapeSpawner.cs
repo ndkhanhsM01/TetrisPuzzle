@@ -10,11 +10,19 @@ public class ShapeSpawner : MonoBehaviour
     [Header("Configures")]
     [SerializeField] private Vector2 spawnPosition;
 
+    [Header("For Cheat")]
+    [SerializeField] private bool enableCheat = false;
+    [SerializeField] private Shape shapeCheat;
+
     private Transform shapesHolder;
 
     private void Awake()
     {
         shapesHolder = transform;
+
+#if !UNITY_EDITOR
+        enableCheat = false;
+#endif
     }
     private void OnDrawGizmosSelected()
     {
@@ -34,9 +42,17 @@ public class ShapeSpawner : MonoBehaviour
 
     public Shape SpawnShape()
     {
-        Shape shape = Instantiate(GetRandomShape(), spawnPosition.ToCeil(), Quaternion.identity, shapesHolder);
+        Shape shape = null;
+        Vector3 targetPosition = new Vector3(spawnPosition.ToIntRound().x, spawnPosition.ToIntRound().y);
 
-        if (!shape) return null;
+        if (!enableCheat)
+        {
+            shape = Instantiate(GetRandomShape(), targetPosition, Quaternion.identity, shapesHolder);
+        }
+        else
+        {
+            shape = Instantiate(shapeCheat, targetPosition, Quaternion.identity, shapesHolder);
+        }
 
         return shape;
     }

@@ -5,23 +5,22 @@ using UnityEngine;
 public static class Extension
 {
     #region Vector
-    public static Vector3 ToCeil(this Vector3 value)
+    public static Vector3Int ToIntRound(this Vector3 value)
     {
-        return new Vector3(Mathf.CeilToInt(value.x), Mathf.CeilToInt(value.y), Mathf.CeilToInt(value.z));
-    }
-    public static Vector3 ToFloor(this Vector3 value)
-    {
-        return new Vector3(Mathf.FloorToInt(value.x), Mathf.FloorToInt(value.y), Mathf.FloorToInt(value.z));
+        return new Vector3Int(Mathf.RoundToInt(value.x), Mathf.RoundToInt(value.y), Mathf.RoundToInt(value.z));
     }
 
-    public static Vector2 ToCeil(this Vector2 value)
+    public static Vector2Int ToIntRound(this Vector2 value)
     {
-        return new Vector2(Mathf.CeilToInt(value.x), Mathf.CeilToInt(value.y));
+        return new Vector2Int(Mathf.RoundToInt(value.x), Mathf.RoundToInt(value.y));
     }
+    #endregion
 
-    public static Vector2 ToFloor(this Vector2 value)
+    #region Gizmos
+    public static void DrawBlankCell(this Vector3 position, Color color)
     {
-        return new Vector2(Mathf.FloorToInt(value.x), Mathf.FloorToInt(value.y));
+        Gizmos.color = color;
+        Gizmos.DrawWireSphere(position, 0.3f);
     }
     #endregion
 }
