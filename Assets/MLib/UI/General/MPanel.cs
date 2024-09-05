@@ -27,11 +27,16 @@ namespace MLib
 
         public virtual void Show(Action onFinish)
         {
+            this.SetActive(true);
             this.DelayRealtimeCall(setting.introDuration, onFinish);
         }
         public virtual void Hide(Action onFinish)
         {
-            this.DelayRealtimeCall(setting.outroDuration, onFinish);
+            this.DelayRealtimeCall(setting.outroDuration, () =>
+            {
+                onFinish?.Invoke();
+                this.SetActive(false);
+            });
         }
     }
 }

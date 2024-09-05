@@ -32,6 +32,12 @@ namespace MLib
         private IEnumerator CR_LoadScene(string sceneName, bool destroyCurrentScene)
         {
             string oldScene = SceneManager.GetActiveScene().name;
+
+            if (destroyCurrentScene)
+            {
+                yield return SceneManager.UnloadSceneAsync(oldScene);
+            }
+
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
             asyncLoad.allowSceneActivation = false;
@@ -50,16 +56,9 @@ namespace MLib
             OnLoadDone?.Invoke();
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
 
-            if (destroyCurrentScene)
-            {
-                AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(oldScene);
-                asyncUnload.completed += (x) =>
-                {
-                    OnLoadStart = null;
-                    OnLoadDone = null;
-                    OnProgressChanged = null;
-                };
-            }
+            OnLoadStart = null;
+            OnLoadDone = null;
+            OnProgressChanged = null;
         }
     }
 }

@@ -29,7 +29,10 @@ public class GamePlayController : MSingleton<GamePlayController>
 
     private bool isStop = false;
 
+    public bool IsGamePause { get; private set; } = false;
     public Action<EndGameStatus> OnGameEnd;
+    public Action OnPauseGame;
+    public Action OnUnpauseGame;
     private void Start()
     {
         dropInterval = normalDropInterval;
@@ -40,6 +43,8 @@ public class GamePlayController : MSingleton<GamePlayController>
     }
     private async void Update()
     {
+        if (IsGamePause) return;
+
         timerHorizontal -= Time.deltaTime;
         timerRotate -= Time.deltaTime;
 #if UNITY_EDITOR
@@ -51,6 +56,18 @@ public class GamePlayController : MSingleton<GamePlayController>
         if (isStop) return;
         AutoDropActiveShape();
         await CheckLandActiveShape();
+    }
+
+    public void PauseGame()
+    {
+        OnPauseGame?.Invoke();
+        IsGamePause = true;
+    }
+
+    public void UnpauseGame()
+    {
+        OnUnpauseGame?.Invoke();
+        IsGamePause = false;
     }
 
     #region Handle active shape
