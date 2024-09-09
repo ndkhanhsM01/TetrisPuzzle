@@ -31,6 +31,7 @@ namespace MLib
 
         private IEnumerator CR_LoadScene(string sceneName, bool destroyCurrentScene)
         {
+            if (ScreenFader.Instance) ScreenFader.Instance.FadeIn(0.25f);
             string oldScene = SceneManager.GetActiveScene().name;
 
             if (destroyCurrentScene)
@@ -55,7 +56,7 @@ namespace MLib
             }
             OnLoadDone?.Invoke();
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
-
+            if (ScreenFader.Instance) ScreenFader.Instance.FadeOut(0.5f);
             OnLoadStart = null;
             OnLoadDone = null;
             OnProgressChanged = null;

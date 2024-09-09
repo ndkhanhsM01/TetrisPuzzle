@@ -7,7 +7,7 @@ public class MainPanel : MPanel
 {
     public void OnClick_Pause()
     {
-        GamePlayController.Instance.OnPauseGame?.Invoke();
+        GamePlayController.Instance.PauseGame();
         MUIManager.Instance.ShowPanel<PausePanel>();
     }
 }

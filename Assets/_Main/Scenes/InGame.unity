@@ -516,7 +516,7 @@ MonoBehaviour:
   - {fileID: -6796127232049866320, guid: afb27c6d25e229945a97ab7da8a8ec6e, type: 3}
   - {fileID: 3129328652838951644, guid: 095c1a61f3428cd48852f413fd3f27b7, type: 3}
   spawnPosition: {x: 4.5, y: 25.5}
-  enableCheat: 0
+  enableCheat: 1
   shapeCheat: {fileID: -8980543698575540423, guid: 65acacb706e963c42871e4fa19d52213, type: 3}
 --- !u!4 &704958328
 Transform:

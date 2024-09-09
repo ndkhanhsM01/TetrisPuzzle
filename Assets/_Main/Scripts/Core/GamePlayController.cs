@@ -30,9 +30,7 @@ public class GamePlayController : MSingleton<GamePlayController>
     private bool isStop = false;
 
     public bool IsGamePause { get; private set; } = false;
-    public Action<EndGameStatus> OnGameEnd;
-    public Action OnPauseGame;
-    public Action OnUnpauseGame;
+
     private void Start()
     {
         dropInterval = normalDropInterval;
@@ -44,7 +42,6 @@ public class GamePlayController : MSingleton<GamePlayController>
     private async void Update()
     {
         if (IsGamePause) return;
-
         timerHorizontal -= Time.deltaTime;
         timerRotate -= Time.deltaTime;
 #if UNITY_EDITOR
@@ -58,15 +55,24 @@ public class GamePlayController : MSingleton<GamePlayController>
         await CheckLandActiveShape();
     }
 
+#if UNITY_EDITOR
+    [MButton]
+    private void CheatGameOver()
+    {
+        EventsCenterInGame.OnGameEnd?.Invoke(EndGameStatus.Lose);
+        Debug.LogWarning("Game lose");
+    }
+
+#endif
     public void PauseGame()
     {
-        OnPauseGame?.Invoke();
+        EventsCenterInGame.OnPauseGame?.Invoke();
         IsGamePause = true;
     }
 
     public void UnpauseGame()
     {
-        OnUnpauseGame?.Invoke();
+        EventsCenterInGame.OnUnpauseGame?.Invoke();
         IsGamePause = false;
     }
 
@@ -94,7 +100,7 @@ public class GamePlayController : MSingleton<GamePlayController>
 
         if(board.IsOverLimit(activeShape))
         {
-            OnGameEnd?.Invoke(EndGameStatus.Lose);
+            EventsCenterInGame.OnGameEnd?.Invoke(EndGameStatus.Lose);
             Debug.LogWarning("Game lose");
             return;
         }

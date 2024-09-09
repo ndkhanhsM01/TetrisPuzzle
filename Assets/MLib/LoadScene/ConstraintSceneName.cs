@@ -8,5 +8,6 @@ namespace MLib
         public const string Demo1 = "Demo1";
         public const string Common = "Common";
         public const string InGame = "InGame";
+        public const string Home = "Home";
     }
 }

@@ -17,7 +17,7 @@ public class ScreenFader: MSingleton<ScreenFader>
     {
         FadeIn(0.1f, () =>
         {
-            FadeOut(1f);
+            FadeOut(3f);
         });
     }
     public void FadeIn(float duration, Action callback = null)
