@@ -13,6 +13,7 @@ public class GamePlayController : MSingleton<GamePlayController>
     [Header("References")]
     [SerializeField] private Board board;
     [SerializeField] private ShapeSpawner spawner;
+    [SerializeField] private GhostShape ghostShape;
 
     [Header("Configures")]
     [Min(1f)][SerializeField] private float dropFastRate = 2f;
@@ -28,8 +29,8 @@ public class GamePlayController : MSingleton<GamePlayController>
     private float timerRotate = 0f;
 
     private bool isStop = false;
-
     public bool IsGamePause { get; private set; } = false;
+    public Board Board => board;
 
     private void Start()
     {
@@ -53,6 +54,15 @@ public class GamePlayController : MSingleton<GamePlayController>
         if (isStop) return;
         AutoDropActiveShape();
         await CheckLandActiveShape();
+    }
+
+    private void LateUpdate()
+    {
+        if(isStop) return;
+        if(ghostShape && activeShape)
+        {
+            ghostShape.Draw(activeShape);
+        }
     }
 
 #if UNITY_EDITOR
@@ -95,6 +105,7 @@ public class GamePlayController : MSingleton<GamePlayController>
 
         activeShape.MoveUp();
         board.StoreShapeInGrid(activeShape);
+        ghostShape.DisableGhost();
 
         isStop = true;
 

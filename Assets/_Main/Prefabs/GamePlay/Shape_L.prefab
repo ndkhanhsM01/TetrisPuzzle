@@ -384,3 +384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8249e0bcc71c90143a0b4228ec3b5a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 2
+  canRotate: 1
+  <AllRenderers>k__BackingField:
+  - {fileID: 4585044417746441916}
+  - {fileID: 2010161644389379973}
+  - {fileID: 7886281994177684201}
+  - {fileID: 2932855830555253694}

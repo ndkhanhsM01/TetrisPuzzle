@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c7422c16bb0f841a5a903ddf4d0646, type: 3}
+  m_Name: ShapeLibrary
+  m_EditorClassIdentifier: 
+  library:
+  - Prefab: {fileID: -8980543698575540423, guid: 65acacb706e963c42871e4fa19d52213, type: 3}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+  - Prefab: {fileID: 7961687511116116086, guid: 6d7e326336a873e4c8f500bb701de4e7, type: 3}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+  - Prefab: {fileID: 1321687195360374143, guid: 7abc8cf8e6ab8f34188fc13e75f3d343, type: 3}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+  - Prefab: {fileID: 7853992135496713518, guid: 1b7944802b7c24c419d65dfce0a912ca, type: 3}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+  - Prefab: {fileID: 3535553354081547954, guid: 7de427b43f40ab54b8c32eefa1f57099, type: 3}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+  - Prefab: {fileID: -6796127232049866320, guid: afb27c6d25e229945a97ab7da8a8ec6e, type: 3}
+    Color: {r: 0, g: 0, b: 0, a: 0}
+  - Prefab: {fileID: 3129328652838951644, guid: 095c1a61f3428cd48852f413fd3f27b7, type: 3}
+    Color: {r: 0, g: 0, b: 0, a: 0}

@@ -132,6 +132,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8249e0bcc71c90143a0b4228ec3b5a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 4
+  canRotate: 1
+  <AllRenderers>k__BackingField:
+  - {fileID: 2575155337260156306}
+  - {fileID: 6748098712608613347}
+  - {fileID: 7620714896803201049}
+  - {fileID: 2014416481732522066}
 --- !u!1 &547208577501867450
 GameObject:
   m_ObjectHideFlags: 0

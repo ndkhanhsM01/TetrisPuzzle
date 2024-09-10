@@ -1,18 +1,20 @@
+using MLib;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Shape : MonoBehaviour
 {
+    public int ID;
     [SerializeField] private bool canRotate = true;
 
     public Transform Body { get; private set; }
 
+    [field: SerializeField] public SpriteRenderer[] AllRenderers { get; private set; }
     private void Awake()
     {
         Body = transform;
     }
-
     private void Move(Vector3 direction)
     {
         Body.position += direction;

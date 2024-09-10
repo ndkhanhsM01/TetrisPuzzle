@@ -478,6 +478,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &694521899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 694521901}
+  - component: {fileID: 694521900}
+  m_Layer: 0
+  m_Name: GhostShape
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &694521900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694521899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bd1b4ff51bc684ea0c6f4f0db96783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapeLibrary: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 0.29803923}
+--- !u!4 &694521901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694521899}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &704958326
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,16 +553,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b3f948ecb608542b3046a2ede00b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  libraryShapes:
-  - {fileID: -8980543698575540423, guid: 65acacb706e963c42871e4fa19d52213, type: 3}
-  - {fileID: 7961687511116116086, guid: 6d7e326336a873e4c8f500bb701de4e7, type: 3}
-  - {fileID: 1321687195360374143, guid: 7abc8cf8e6ab8f34188fc13e75f3d343, type: 3}
-  - {fileID: 7853992135496713518, guid: 1b7944802b7c24c419d65dfce0a912ca, type: 3}
-  - {fileID: 3535553354081547954, guid: 7de427b43f40ab54b8c32eefa1f57099, type: 3}
-  - {fileID: -6796127232049866320, guid: afb27c6d25e229945a97ab7da8a8ec6e, type: 3}
-  - {fileID: 3129328652838951644, guid: 095c1a61f3428cd48852f413fd3f27b7, type: 3}
+  shapeLibrary: {fileID: 0}
   spawnPosition: {x: 4.5, y: 25.5}
-  enableCheat: 1
+  enableCheat: 0
   shapeCheat: {fileID: -8980543698575540423, guid: 65acacb706e963c42871e4fa19d52213, type: 3}
 --- !u!4 &704958328
 Transform:
@@ -576,6 +615,7 @@ MonoBehaviour:
   destroyOnLoad: 1
   board: {fileID: 1275808289}
   spawner: {fileID: 704958327}
+  ghostShape: {fileID: 694521900}
   dropFastRate: 5
   normalDropInterval: 0.3
   horizontalRate: 0.2
@@ -1044,6 +1084,7 @@ SceneRoots:
   - {fileID: 197074127}
   - {fileID: 1371033331}
   - {fileID: 704958328}
+  - {fileID: 694521901}
   - {fileID: 6666635424589699250}
   - {fileID: 35528209}
   - {fileID: 8537977961831067628}

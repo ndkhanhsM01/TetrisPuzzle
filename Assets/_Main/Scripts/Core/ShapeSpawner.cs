@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShapeSpawner : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Shape[] libraryShapes;
+    [SerializeField] private ShapeLibrary shapeLibrary;
 
     [Header("Configures")]
     [SerializeField] private Vector2 spawnPosition;
@@ -31,13 +31,7 @@ public class ShapeSpawner : MonoBehaviour
     }
     public Shape GetRandomShape()
     {
-        int index = Random.Range(0, libraryShapes.Length);
-        if (libraryShapes[index])
-        {
-            return libraryShapes[index];
-        }
-
-        return null;
+        return shapeLibrary.GetRandom();
     }
 
     public Shape SpawnShape()
