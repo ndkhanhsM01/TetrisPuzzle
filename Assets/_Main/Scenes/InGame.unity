@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bd1b4ff51bc684ea0c6f4f0db96783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shapeLibrary: {fileID: 0}
+  shapeLibrary: {fileID: 11400000, guid: 5def12f25cfe7fa4583cd7abaa132ce2, type: 2}
   color: {r: 1, g: 1, b: 1, a: 0.29803923}
 --- !u!4 &694521901
 Transform:
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b3f948ecb608542b3046a2ede00b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shapeLibrary: {fileID: 0}
+  shapeLibrary: {fileID: 11400000, guid: 5def12f25cfe7fa4583cd7abaa132ce2, type: 2}
   spawnPosition: {x: 4.5, y: 25.5}
   enableCheat: 0
   shapeCheat: {fileID: -8980543698575540423, guid: 65acacb706e963c42871e4fa19d52213, type: 3}
