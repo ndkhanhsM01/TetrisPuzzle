@@ -46,17 +46,13 @@ public class GhostShape : MonoBehaviour
 
     public void EnableGhost(Shape originShape)
     {
-        Debug.Log("ghost enable: " + originShape.name);
         ghost = dictGhostsPrepare[originShape.ID];
         ghost.SetActive(true);
     }
 
     public void DisableGhost()
     {
-        Debug.Log("ghost disable: " + ghost.name);
         ghost.SetActive(false);
-
-
         ghost = null;
     }
 

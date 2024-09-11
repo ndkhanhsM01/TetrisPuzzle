@@ -16,49 +16,53 @@ public class GamePlayController : MSingleton<GamePlayController>
     [SerializeField] private GhostShape ghostShape;
 
     [Header("Configures")]
-    [Min(1f)][SerializeField] private float dropFastRate = 2f;
-    [SerializeField] private float normalDropInterval = 0.3f;
+    [Min(1f)][SerializeField] private float fallingFastRate = 2f;
+    [SerializeField] private float normalFallingInterval = 0.3f;
     [Header("Repeat input rate")]
     [Min(0f)][SerializeField] private float horizontalRate = 0.2f;
     [Min(0f)][SerializeField] private float rotateRate = 0.2f;
 
     private Shape activeShape;
-    private float dropInterval = 0f;
-    private float dropTimer = 0f;
+    private float fallingInterval = 0f;
+    private float fallingTimer = 0f;
     private float timerHorizontal = 0f;
     private float timerRotate = 0f;
 
-    private bool isStop = false;
+    private bool isStopFalling = false;
+    private bool isListenInput = true;
     public bool IsGamePause { get; private set; } = false;
     public Board Board => board;
 
     private void Start()
     {
-        dropInterval = normalDropInterval;
-        if(!activeShape)
+        fallingInterval = normalFallingInterval;
+        isListenInput = true;
+        if (!activeShape)
         {
             activeShape = spawner.SpawnShape();
         }
     }
-    private async void Update()
+    private void Update()
     {
         if (IsGamePause) return;
         timerHorizontal -= Time.deltaTime;
         timerRotate -= Time.deltaTime;
+        if (isListenInput)
+        {
 #if UNITY_EDITOR
-        HandleInputOnPC();
+            HandleInputOnPC();
 #elif PLATFORM_ANDROID
         HandleInputOnMobile();
 #endif
+        }
 
-        if (isStop) return;
-        AutoDropActiveShape();
-        await CheckLandActiveShape();
+        if(!isStopFalling) 
+            AutoFallActiveShape();
     }
 
     private void LateUpdate()
     {
-        if(isStop) return;
+        if(isStopFalling) return;
         if(ghostShape && activeShape)
         {
             ghostShape.Draw(activeShape);
@@ -87,16 +91,17 @@ public class GamePlayController : MSingleton<GamePlayController>
     }
 
     #region Handle active shape
-    private void AutoDropActiveShape()
+    private async void AutoFallActiveShape()
     {
-        if (activeShape && dropTimer <= 0f)
+        if (activeShape && fallingTimer <= 0f)
         {
-            dropTimer = dropInterval;
+            fallingTimer = fallingInterval;
 
             activeShape.MoveDown();
         }
 
-        dropTimer -= Time.deltaTime;
+        fallingTimer -= Time.deltaTime;
+        await CheckLandActiveShape();
     }
     private async UniTask CheckLandActiveShape()
     {
@@ -107,7 +112,7 @@ public class GamePlayController : MSingleton<GamePlayController>
         board.StoreShapeInGrid(activeShape);
         ghostShape.DisableGhost();
 
-        isStop = true;
+        isStopFalling = true;
 
         if(board.IsOverLimit(activeShape))
         {
@@ -117,7 +122,7 @@ public class GamePlayController : MSingleton<GamePlayController>
         }
 
         await board.CheckClearAllRows();
-        isStop = false;
+        isStopFalling = false;
         activeShape = spawner.SpawnShape();
     }
     #endregion
@@ -127,9 +132,9 @@ public class GamePlayController : MSingleton<GamePlayController>
     private void HandleInputOnPC()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
-            DetectHoldDropFast(true);
+            DetectHoldFallingFast(true);
         else if (Input.GetKeyUp(KeyCode.DownArrow))
-            DetectHoldDropFast(false);
+            DetectHoldFallingFast(false);
 
 
         if (timerHorizontal <= 0f && (Input.GetKey(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
@@ -142,10 +147,14 @@ public class GamePlayController : MSingleton<GamePlayController>
             timerHorizontal = horizontalRate;
             OnMoveLeft();
         }
-        else if (timerRotate <= 0f && (Input.GetKey(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.UpArrow)))
+        else if (timerRotate <= 0f && (Input.GetKey(KeyCode.Space) || Input.GetKeyDown(KeyCode.Space)))
         {
             timerRotate = rotateRate;
             OnRotate();
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            OnDropImmidiate();
         }
     }
 
@@ -153,17 +162,30 @@ public class GamePlayController : MSingleton<GamePlayController>
     {
 
     }
-    private void DetectHoldDropFast(bool status)
+    private void DetectHoldFallingFast(bool status)
     {
         if (status)
         {
-            dropTimer = 0f;
-            dropInterval = normalDropInterval / dropFastRate;
+            fallingTimer = 0f;
+            fallingInterval = normalFallingInterval / fallingFastRate;
         }
         else
         {
-            dropInterval = normalDropInterval;
+            fallingInterval = normalFallingInterval;
         }
+    }
+    private async void OnDropImmidiate()
+    {
+        isListenInput = false;
+        isStopFalling = true;
+        while (isStopFalling)
+        {
+            activeShape.MoveDown();
+            await CheckLandActiveShape();
+            await UniTask.WaitForSeconds(0.001f);
+        }
+
+        isListenInput = true;
     }
     private void OnMoveRight()
     {
