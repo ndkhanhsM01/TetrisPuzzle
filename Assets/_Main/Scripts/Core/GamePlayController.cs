@@ -30,6 +30,8 @@ public class GamePlayController : MSingleton<GamePlayController>
 
     private bool isStopFalling = false;
     private bool isListenInput = true;
+
+    public bool IsRotateClockwise { get; set; }
     public bool IsGamePause { get; private set; } = false;
     public Board Board => board;
 
@@ -206,10 +208,22 @@ public class GamePlayController : MSingleton<GamePlayController>
     private void OnRotate()
     {
         if (!activeShape) return;
-        activeShape.RotateRight();
 
-        if(!board.IsValidPosition(activeShape))
+        if (IsRotateClockwise)
+        {
+            activeShape.RotateRight();
+
+            if (!board.IsValidPosition(activeShape))
+                activeShape.RotateLeft();
+        }
+        else
+        {
             activeShape.RotateLeft();
+
+            if (!board.IsValidPosition(activeShape))
+                activeShape.RotateRight();
+        }
+
     }
     #endregion
 }
