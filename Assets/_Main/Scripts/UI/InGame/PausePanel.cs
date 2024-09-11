@@ -29,6 +29,6 @@ public class PausePanel : MPanel
     } 
     public void OnClick_Home()
     {
-
+        MSceneManager.Instance.LoadScene(ConstraintSceneName.Home);
     }
 }
