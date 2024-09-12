@@ -7,6 +7,15 @@ namespace MLib
 {
     public abstract class MPanel : MonoBehaviour
     {
+        protected Canvas canvas;
+        protected CanvasGroup canvasGroup;
+
+        protected virtual void Awake()
+        {
+            canvas = GetComponent<Canvas>();
+            canvasGroup = GetComponent<CanvasGroup>();
+        }
+
         [System.Serializable]
         public class Setting
         {
@@ -27,15 +36,21 @@ namespace MLib
 
         public virtual void Show(Action onFinish)
         {
-            this.SetActive(true);
+            canvas.enabled = true;
+            if(canvasGroup)
+            {
+                canvasGroup.interactable = false;
+                onFinish += () => canvasGroup.interactable = true;
+            }
             this.DelayRealtimeCall(setting.introDuration, onFinish);
         }
         public virtual void Hide(Action onFinish)
         {
+            if (canvasGroup) canvasGroup.interactable = false;
             this.DelayRealtimeCall(setting.outroDuration, () =>
             {
                 onFinish?.Invoke();
-                this.SetActive(false);
+                canvas.enabled = false;
             });
         }
     }

@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MLib;
+using TMPro;
+using DG.Tweening;
 
 public class MainPanel : MPanel 
 {
+    [Header("Score")]
+    [SerializeField] private TMP_Text tmpScoreValue;
+
     [Header("Rotate button")]
     [SerializeField] private GameObject clockwise_On;
     [SerializeField] private GameObject clockwise_Off;
@@ -12,6 +17,14 @@ public class MainPanel : MPanel
     private void Start()
     {
         UpdateUIRotate();
+    }
+    private void OnEnable()
+    {
+        ScoreSystem.Instance.OnScoreChanged += OnScoreChanged;
+    }
+    private void OnDisable()
+    {
+        ScoreSystem.Instance.OnScoreChanged -= OnScoreChanged;
     }
     public void OnClick_Pause()
     {
@@ -39,5 +52,13 @@ public class MainPanel : MPanel
             clockwise_On.SetActive(false);
             clockwise_Off.SetActive(true);
         }
+    }
+
+    private void OnScoreChanged(int oldValue, int newValue)
+    {
+        DOVirtual.Int(oldValue, newValue, 0.5f, (value) =>
+        {
+            tmpScoreValue.text = value.ToString();
+        });
     }
 }

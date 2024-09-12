@@ -12,9 +12,11 @@ namespace MLib
 
         public Action OnLoadStart;
         public Action OnLoadDone;
+        public Action OnSceneReady;
         public Action<float> OnProgressChanged;
 
         private bool enableLoadNewScene = false;
+
         public void LoadScene(string sceneName, bool destroyCurrentScene = true)
         {
             enableLoadNewScene = true;
@@ -57,9 +59,19 @@ namespace MLib
             OnLoadDone?.Invoke();
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
             if (ScreenFader.Instance) ScreenFader.Instance.FadeOut(0.5f);
+
+            int frameCount = 2;
+            while (frameCount > 0)
+            {
+                frameCount--;
+                yield return null;
+            }
+            OnSceneReady?.Invoke();
+
             OnLoadStart = null;
             OnLoadDone = null;
             OnProgressChanged = null;
+            OnSceneReady = null;
         }
     }
 }

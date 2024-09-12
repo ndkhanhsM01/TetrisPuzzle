@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7492417036342187642}
   - component: {fileID: 3915399276015393365}
+  - component: {fileID: 4127164838398932684}
   m_Layer: 0
   m_Name: GamePlayController
   m_TagString: Untagged
@@ -52,3 +53,19 @@ MonoBehaviour:
   normalFallingInterval: 0.3
   horizontalRate: 0.2
   rotateRate: 0.2
+--- !u!114 &4127164838398932684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375767989809800956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904bd6e61f193f74c969c54c8d31c896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyOnLoad: 1
+  score: 0
+  scoreStep: 100
+  multiplePerCombo: 1

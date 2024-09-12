@@ -18,6 +18,7 @@ public class Board : MonoBehaviour
 
     public Transform[,] Grid { get; private set; }
 
+    private ScoreSystem scoreSystem => ScoreSystem.Instance;
     private void Awake()
     {
         if(!mainCamera) mainCamera = Camera.main;
@@ -143,15 +144,21 @@ public class Board : MonoBehaviour
     {
         for(int y = 0; y< height; y++)
         {
-            if (IsRowComplete(y))
-            {
-                ClearRow(y);
+            if (!IsRowComplete(y)) continue;
 
-                await UniTask.WaitForSeconds(0.1f);
-                ShiftRowsDown(y+1);
-                await UniTask.WaitForSeconds(0.1f);
-                y--;
-            }
+            if (!scoreSystem.InCombo) scoreSystem.StartNewCombo();
+            ClearRow(y);
+            scoreSystem.IncreaseComboCount();
+            await UniTask.WaitForSeconds(0.1f);
+            ShiftRowsDown(y + 1);
+            await UniTask.WaitForSeconds(0.1f);
+            y--;
+        }
+
+        if (scoreSystem.InCombo)
+        {
+            scoreSystem.UpdateScoreInCombo();
+            scoreSystem.EndCurrentCombo();
         }
     }
 

@@ -331,6 +331,7 @@ MonoBehaviour:
   setting:
     introDuration: 0
     outroDuration: 0.5
+  tmpScoreValue: {fileID: 6117238580991419243}
   clockwise_On: {fileID: 2532020915540398283}
   clockwise_Off: {fileID: 5857970325289877380}
 --- !u!223 &4935411124476028434
