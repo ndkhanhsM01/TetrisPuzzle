@@ -36,6 +36,11 @@ namespace MLib
 
         public virtual void Show(Action onFinish)
         {
+            if (!canvas)
+            {
+                Debug.LogError("My panel have to have canvas, right?");
+                return;
+            }
             canvas.enabled = true;
             if(canvasGroup)
             {

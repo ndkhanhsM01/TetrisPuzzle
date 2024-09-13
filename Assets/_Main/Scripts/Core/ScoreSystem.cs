@@ -19,15 +19,7 @@ public class ScoreSystem: MSingleton<ScoreSystem>
 
     private void Start()
     {
-        OnGameReady();
-    }
-    private void OnEnable()
-    {
-        //MSceneManager.Instance.OnSceneReady += OnGameReady;
-    }
-    private void OnDisable()
-    {
-        //MSceneManager.Instance.OnSceneReady -= OnGameReady;
+        EventsCenter.OnSceneLoaded += OnGameReady;
     }
 
     private void OnGameReady()

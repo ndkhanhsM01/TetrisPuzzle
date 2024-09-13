@@ -52,6 +52,11 @@ public class GhostShape : MonoBehaviour
 
     public void DisableGhost()
     {
+        if (!ghost)
+        {
+            Debug.LogWarning("Dont have Ghost, but you try access it!");
+            return;
+        }
         ghost.SetActive(false);
         ghost = null;
     }

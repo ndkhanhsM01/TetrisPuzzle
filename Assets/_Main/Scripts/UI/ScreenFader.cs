@@ -9,15 +9,15 @@ using DG.Tweening;
 public class ScreenFader: MSingleton<ScreenFader>
 {
     [SerializeField] private Image imgCover;
-
+    [SerializeField] private float durationFadeOutOnStart = 0.5f;
     public Image ImageCover => imgCover;
 
     private Tween tFade;
     private void Start()
     {
-        FadeIn(0.1f, () =>
+        FadeIn(0f, () =>
         {
-            FadeOut(3f);
+            FadeOut(durationFadeOutOnStart);
         });
     }
     public void FadeIn(float duration, Action callback = null)

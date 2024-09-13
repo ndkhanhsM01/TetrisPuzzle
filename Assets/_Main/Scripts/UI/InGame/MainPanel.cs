@@ -17,8 +17,9 @@ public class MainPanel : MPanel
     private void Start()
     {
         UpdateUIRotate();
+        EventsCenter.OnSceneLoaded += OnSceneLoaded;
     }
-    private void OnEnable()
+    private void OnSceneLoaded()
     {
         ScoreSystem.Instance.OnScoreChanged += OnScoreChanged;
     }
@@ -26,6 +27,7 @@ public class MainPanel : MPanel
     {
         ScoreSystem.Instance.OnScoreChanged -= OnScoreChanged;
     }
+
     public void OnClick_Pause()
     {
         GamePlayController.Instance.PauseGame();

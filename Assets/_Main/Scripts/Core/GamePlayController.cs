@@ -33,7 +33,12 @@ public class GamePlayController : MSingleton<GamePlayController>
 
     public bool IsRotateClockwise { get; set; }
     public bool IsGamePause { get; private set; } = false;
+    public bool IsEndGame { get; private set; } = false;
     public Board Board => board;
+
+    public Action<EndGameStatus> OnGameEnd;
+    public Action OnPauseGame;
+    public Action OnUnpauseGame;
 
     private void Start()
     {
@@ -46,7 +51,7 @@ public class GamePlayController : MSingleton<GamePlayController>
     }
     private void Update()
     {
-        if (IsGamePause) return;
+        if (IsGamePause || IsEndGame) return;
         timerHorizontal -= Time.deltaTime;
         timerRotate -= Time.deltaTime;
         if (isListenInput)
@@ -75,20 +80,21 @@ public class GamePlayController : MSingleton<GamePlayController>
     [MButton]
     private void CheatGameOver()
     {
-        EventsCenterInGame.OnGameEnd?.Invoke(EndGameStatus.Lose);
+        OnGameEnd?.Invoke(EndGameStatus.Lose);
+        IsEndGame = true;
         Debug.LogWarning("Game lose");
     }
 
 #endif
     public void PauseGame()
     {
-        EventsCenterInGame.OnPauseGame?.Invoke();
+        OnPauseGame?.Invoke();
         IsGamePause = true;
     }
 
     public void UnpauseGame()
     {
-        EventsCenterInGame.OnUnpauseGame?.Invoke();
+        OnUnpauseGame?.Invoke();
         IsGamePause = false;
     }
 
@@ -118,7 +124,8 @@ public class GamePlayController : MSingleton<GamePlayController>
 
         if(board.IsOverLimit(activeShape))
         {
-            EventsCenterInGame.OnGameEnd?.Invoke(EndGameStatus.Lose);
+            OnGameEnd?.Invoke(EndGameStatus.Lose);
+            IsEndGame = true;
             Debug.LogWarning("Game lose");
             return;
         }
@@ -180,7 +187,7 @@ public class GamePlayController : MSingleton<GamePlayController>
     {
         isListenInput = false;
         isStopFalling = true;
-        while (isStopFalling)
+        while (isStopFalling && activeShape && !IsEndGame)
         {
             activeShape.MoveDown();
             await CheckLandActiveShape();

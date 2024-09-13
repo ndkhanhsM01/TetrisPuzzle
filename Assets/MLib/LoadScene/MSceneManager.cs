@@ -35,27 +35,29 @@ namespace MLib
         {
             if (ScreenFader.Instance) ScreenFader.Instance.FadeIn(0.25f);
             string oldScene = SceneManager.GetActiveScene().name;
-
             if (destroyCurrentScene)
             {
-                yield return SceneManager.UnloadSceneAsync(oldScene);
+                var unloadAsync = SceneManager.UnloadSceneAsync(oldScene);
+                while (!unloadAsync.isDone) yield return null;
             }
-
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
             asyncLoad.allowSceneActivation = false;
+
 
             OnLoadStart?.Invoke();
             while (!asyncLoad.isDone)
             {
                 OnProgressChanged?.Invoke(asyncLoad.progress);
-                if (asyncLoad.progress >= percentAccept && enableLoadNewScene)
+                if (asyncLoad.progress >= percentAccept && enableLoadNewScene && !asyncLoad.allowSceneActivation)
                 {
+
                     asyncLoad.allowSceneActivation = true;
                 }
 
                 yield return null;
             }
+
             OnLoadDone?.Invoke();
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
             if (ScreenFader.Instance) ScreenFader.Instance.FadeOut(0.5f);
@@ -67,6 +69,7 @@ namespace MLib
                 yield return null;
             }
             OnSceneReady?.Invoke();
+            EventsCenter.OnSceneLoaded?.Invoke();
 
             OnLoadStart = null;
             OnLoadDone = null;

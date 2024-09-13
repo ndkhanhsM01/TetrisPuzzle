@@ -4,14 +4,18 @@ using UnityEngine;
 using MLib;
 public class PanelGameOver : MPanel
 {
-    private void OnEnable()
+    private void Start()
     {
-        EventsCenterInGame.OnGameEnd += OnEndGame;
+        EventsCenter.OnSceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        EventsCenterInGame.OnGameEnd -= OnEndGame;
+        GamePlayController.Instance.OnGameEnd -= OnEndGame;
+    }
+    private void OnSceneLoaded()
+    {
+        GamePlayController.Instance.OnGameEnd += OnEndGame;
     }
     private void OnEndGame(EndGameStatus status)
     {
