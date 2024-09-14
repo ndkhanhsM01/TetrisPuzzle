@@ -6,7 +6,9 @@ public class CommonGameCycle : MSingleton<CommonGameCycle>
 {
     protected override void Awake()
     {
-        QualitySettings.vSyncCount = 0; 
+#if !UNITY_EDITOR
+        QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
+#endif
     }
 }

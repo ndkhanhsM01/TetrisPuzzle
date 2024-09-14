@@ -127,6 +127,7 @@ public class GamePlayController : MSingleton<GamePlayController>
         board.StoreShapeInGrid(activeShape);
         ghostShape.DisableGhost();
 
+        inputDetector.ResetTouch();
         isStopFalling = true;
 
         if(board.IsOverLimit(activeShape))
@@ -162,11 +163,11 @@ public class GamePlayController : MSingleton<GamePlayController>
         isListenInput = false;
         inputDetector.IsActive = false;
         isStopFalling = true;
+        await UniTask.WaitForSeconds(0.25f);
         while (isStopFalling && activeShape && !IsEndGame)
         {
             activeShape.MoveDown();
             await CheckLandActiveShape();
-            await UniTask.WaitForSeconds(0.001f);
         }
         inputDetector.IsActive = true;
         isListenInput = true;
