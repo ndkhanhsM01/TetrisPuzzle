@@ -20,6 +20,7 @@ namespace MLib
 
         public static Coroutine DelayCall(this MonoBehaviour m, float delay, Action callback)
         {
+            if (!m || !m.gameObject.activeInHierarchy) return null;
             return m.StartCoroutine(IE_DelayCall());
 
             IEnumerator IE_DelayCall()
@@ -32,6 +33,7 @@ namespace MLib
 
         public static Coroutine DelayRealtimeCall(this MonoBehaviour m, float delay, Action callback)
         {
+            if (!m ||!m.gameObject.activeInHierarchy) return null;
             return m.StartCoroutine(IE_DelayCall());
 
             IEnumerator IE_DelayCall()
