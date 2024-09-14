@@ -11,9 +11,14 @@ public class Shape : MonoBehaviour
     public Transform Body { get; private set; }
 
     [field: SerializeField] public SpriteRenderer[] AllRenderers { get; private set; }
+
+    private bool activeTrail = false;
+    private TrailRenderer[] allTrails;
     private void Awake()
     {
         Body = transform;
+        allTrails = GetComponentsInChildren<TrailRenderer>();
+        DisableTrail();
     }
     private void Move(Vector3 direction)
     {
@@ -49,5 +54,20 @@ public class Shape : MonoBehaviour
     {
         if (!canRotate) return;
         Body.Rotate(0f, 0f, 90f);
+    }
+
+    public void EnableTrail()
+    {
+        foreach (TrailRenderer trail in allTrails)
+        {
+            if (trail) trail.enabled = true;
+        }
+    }
+    public void DisableTrail()
+    {
+        foreach (TrailRenderer trail in allTrails)
+        {
+            if (trail) trail.enabled = false;
+        }
     }
 }

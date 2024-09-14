@@ -163,6 +163,7 @@ public class GamePlayController : MSingleton<GamePlayController>
         isListenInput = false;
         inputDetector.IsActive = false;
         isStopFalling = true;
+        if(activeShape) activeShape.EnableTrail();
         await UniTask.WaitForSeconds(0.25f);
         while (isStopFalling && activeShape && !IsEndGame)
         {

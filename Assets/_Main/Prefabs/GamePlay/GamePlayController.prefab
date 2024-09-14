@@ -87,7 +87,7 @@ MonoBehaviour:
   tapThreshold: 0.15
   dragThresholdHorizontal: 3
   timeThresholdHorizontal: 0.2
-  dragThreshollVertical: 4
+  dragThreshollVertical: 3
   timeThresholdVertical: 0.1
   speedTouchForDrop: 1500
   horizontalRate: 0.15
