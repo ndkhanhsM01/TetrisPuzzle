@@ -7,6 +7,7 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private CellPooler cellPooler;
     [SerializeField] private Transform emptyCellPrefab;
     [SerializeField] private Transform gridHolder;
     [SerializeField] private SpriteRenderer spriteBorder;
@@ -16,13 +17,14 @@ public class Board : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
 
-    public Transform[,] Grid { get; private set; }
+    public Transform Body { get; private set; }
+    public Cell[,] Grid { get; private set; }
 
     private ScoreSystem scoreSystem => ScoreSystem.Instance;
     private void Awake()
     {
         if(!mainCamera) mainCamera = Camera.main;
-
+        Body = transform;
         
     }
     private void Start()
@@ -40,7 +42,7 @@ public class Board : MonoBehaviour
     private void DrawEmptyCells()
     {
         ClearOldCells();
-        Grid = new Transform[width, height];
+        Grid = new Cell[width, height];
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -91,12 +93,12 @@ public class Board : MonoBehaviour
     {
         if (!shape) return;
 
-        foreach(Transform child in shape.Body)
+        foreach(Cell cell in shape.Cells)
         {
-            Vector3Int intPosition = child.position.ToIntRound();
-
+            Vector3Int intPosition = cell.Body.position.ToIntRound();
+            cell.Body.parent = Body;
             if(intPosition.x < width && intPosition.y < height)
-                Grid[intPosition.x, intPosition.y] = child;
+                Grid[intPosition.x, intPosition.y] = cell;
         }
     }
 
@@ -116,7 +118,7 @@ public class Board : MonoBehaviour
         {
             if (Grid[x, y] == null) continue;
 
-            Destroy(Grid[x, y].gameObject);
+            cellPooler.ReturnCell(Grid[x, y]);
             Grid[x, y] = null;
         }
     }
@@ -128,7 +130,7 @@ public class Board : MonoBehaviour
             if (Grid[x, y] == null) continue;
             Grid[x, y-1] = Grid[x, y];
             Grid[x, y] = null;
-            Grid[x, y - 1].position += Vector3.down;
+            Grid[x, y - 1].Body.position += Vector3.down;
         }
     }
 

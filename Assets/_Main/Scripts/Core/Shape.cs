@@ -7,22 +7,60 @@ public class Shape : MonoBehaviour
 {
     public int ID;
     [SerializeField] private bool canRotate = true;
+    [SerializeField] private CellPooler cellPooler;
+    [SerializeField] private Color defaultColor = Color.white;
+    [SerializeField] private Vector2[] cellsPosition;
 
+    [Header("Debug")]
+    [SerializeField] private float sizeBorder = 1f;
     public Transform Body { get; private set; }
 
-    [field: SerializeField] public SpriteRenderer[] AllRenderers { get; private set; }
+    public List<Cell> Cells { get; private set; }
 
     private bool activeTrail = false;
-    private TrailRenderer[] allTrails;
     private void Awake()
     {
         Body = transform;
-        allTrails = GetComponentsInChildren<TrailRenderer>();
-        DisableTrail();
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        if(cellsPosition == null || cellsPosition.Length == 0) return;
+        if(!Body) Body = transform;
+        Gizmos.color = defaultColor;
+        foreach(Vector2 position in cellsPosition)
+        {
+            Vector3 targetPos = Body.position + (Vector3) position;
+            targetPos.z = Body.position.z;
+            Gizmos.DrawWireCube(targetPos, Vector3.one * sizeBorder);
+        }
+    }
+
     private void Move(Vector3 direction)
     {
         Body.position += direction;
+    }
+
+    public void Initialize()
+    {
+        Cells = new List<Cell>();
+        for(int i=0; i<cellsPosition.Length; i++)
+        {
+            Vector3 position = cellsPosition[i];
+            position.z = Body.position.z;
+            Cells.Add(cellPooler.GetOne(Body, position));
+        }
+        DisableTrail();
+        SetColor(defaultColor);
+    }
+    public void SetColor(Color color)
+    {
+        if(Cells == null || Cells.Count == 0) return;
+        
+        foreach(Cell cell in Cells)
+        {
+            cell.Graphic.color = color;
+        }
     }
 
     public void MoveLeft()
@@ -58,16 +96,16 @@ public class Shape : MonoBehaviour
 
     public void EnableTrail()
     {
-        foreach (TrailRenderer trail in allTrails)
+        foreach (Cell cell in Cells)
         {
-            if (trail) trail.enabled = true;
+            if (cell) cell.FX.enabled = true;
         }
     }
     public void DisableTrail()
     {
-        foreach (TrailRenderer trail in allTrails)
+        foreach (Cell cell in Cells)
         {
-            if (trail) trail.enabled = false;
+            if (cell) cell.FX.enabled = false;
         }
     }
 }

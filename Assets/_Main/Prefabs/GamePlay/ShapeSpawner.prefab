@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapeLibrary: {fileID: 11400000, guid: 5def12f25cfe7fa4583cd7abaa132ce2, type: 2}
+  cellPooler: {fileID: 11400000, guid: 013c56f2be96c244396f49c25e8bfd46, type: 2}
   spawnPosition: {x: 4.5, y: 23}
   enableCheat: 0
   shapeCheat: {fileID: -8980543698575540423, guid: 65acacb706e963c42871e4fa19d52213, type: 3}

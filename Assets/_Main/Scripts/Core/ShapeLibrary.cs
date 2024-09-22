@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -18,15 +20,33 @@ public class ShapeLibrary: ScriptableObject
 
     public ShapeConfig[] All => library;
 
+    private Dictionary<int, Shape> shapePooler = new Dictionary<int, Shape>();
+    public void InitializeShapePooler(Transform parent)
+    {
+        shapePooler = new();
+        foreach (ShapeConfig config in All)
+        {
+            Shape shape = Instantiate(config.Prefab, parent);
+            shape.SetActive(true);
+            shapePooler.Add(shape.ID, shape);
+        }
+    }
     public Shape GetRandom()
     {
-        return library.GetRandom().Prefab;
-    }
-    public Shape SpawnRandom()
-    {
-        Shape shape = GetRandom();
-        Shape cloner = Instantiate(shape);
-        return cloner;
+        int target = Random.Range(0, shapePooler.Count);
+        int count = 0;
+        foreach(Shape shape in shapePooler.Values)
+        {
+            if (count == target)
+            {
+                //shape.SetActive(true);
+                return shape;
+            }
+            count++;
+        }
+
+        Debug.LogError("Wronggg!!");
+        return null;
     }
 
 #if UNITY_EDITOR

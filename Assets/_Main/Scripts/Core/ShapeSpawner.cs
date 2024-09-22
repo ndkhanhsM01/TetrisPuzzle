@@ -1,11 +1,15 @@
+using MLib;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ShapeLibrary;
 
 public class ShapeSpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private ShapeLibrary shapeLibrary;
+    [SerializeField] private CellPooler cellPooler;
 
     [Header("Configures")]
     [SerializeField] private Vector2 spawnPosition;
@@ -15,7 +19,6 @@ public class ShapeSpawner : MonoBehaviour
     [SerializeField] private Shape shapeCheat;
 
     private Transform shapesHolder;
-
     private void Awake()
     {
         shapesHolder = transform;
@@ -23,16 +26,16 @@ public class ShapeSpawner : MonoBehaviour
 #if !UNITY_EDITOR
         enableCheat = false;
 #endif
+
+        cellPooler.Initialize(shapesHolder);
+        shapeLibrary.InitializeShapePooler(shapesHolder);
     }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(spawnPosition, 0.5f);
     }
-    public Shape GetRandomShape()
-    {
-        return shapeLibrary.GetRandom();
-    }
+
 
     public Shape SpawnShape()
     {
@@ -41,7 +44,10 @@ public class ShapeSpawner : MonoBehaviour
 
         if (!enableCheat)
         {
-            shape = Instantiate(GetRandomShape(), targetPosition, Quaternion.identity, shapesHolder);
+            shape = shapeLibrary.GetRandom();
+            shape.Initialize();
+            shape.Body.position = targetPosition;
+
         }
         else
         {
@@ -49,5 +55,10 @@ public class ShapeSpawner : MonoBehaviour
         }
 
         return shape;
+    }
+
+    public List<Cell> GetCellsFromPool(int amount)
+    {
+        return new List<Cell>();
     }
 }

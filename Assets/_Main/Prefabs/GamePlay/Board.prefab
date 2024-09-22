@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7cea5391c51b244480c18c1e5359c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellPooler: {fileID: 11400000, guid: 013c56f2be96c244396f49c25e8bfd46, type: 2}
   emptyCellPrefab: {fileID: 9198184546562685897, guid: 2b468c6ebe1a4584b8b31517fed855db, type: 3}
   gridHolder: {fileID: 2696186146556359697}
   spriteBorder: {fileID: 6330201762476666302}

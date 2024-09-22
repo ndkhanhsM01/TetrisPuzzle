@@ -12,15 +12,13 @@ public class GhostShape : MonoBehaviour
     private bool hitBottom;
 
     private Dictionary<int, Shape> dictGhostsPrepare = new();
-    private void Awake()
+    private void OnEnable()
     {
-        dictGhostsPrepare = new();
-        foreach(ShapeConfig config in shapeLibrary.All)
-        {
-            var clone = SpawnNewGhostShape(config.Prefab);
-            clone.SetActive(false);
-            dictGhostsPrepare.TryAdd(config.Prefab.ID, clone);
-        }
+        EventsCenter.OnSceneLoaded += PrepareShapes;
+    }
+    private void OnDisable()
+    {
+        EventsCenter.OnSceneLoaded -= PrepareShapes;
     }
     public void Draw(Shape originalShape)
     {
@@ -61,15 +59,25 @@ public class GhostShape : MonoBehaviour
         ghost = null;
     }
 
+    private void PrepareShapes()
+    {
+        dictGhostsPrepare = new();
+        foreach (ShapeConfig config in shapeLibrary.All)
+        {
+            var clone = SpawnNewGhostShape(config.Prefab);
+            clone.SetActive(false);
+            dictGhostsPrepare.TryAdd(config.Prefab.ID, clone);
+        }
+    }
     private Shape SpawnNewGhostShape(Shape originalShape)
     {
         Shape cloner = Instantiate(originalShape, originalShape.transform.position, Quaternion.identity);
         cloner.gameObject.name = $"GhostShape {originalShape.name}";
         cloner.transform.parent = transform;
-
-        foreach (var renderer in cloner.AllRenderers)
+        cloner.Initialize();
+        foreach (var cell in cloner.Cells)
         {
-            renderer.color = color;
+            cell.Graphic.color = color;
         }
 
         return cloner;

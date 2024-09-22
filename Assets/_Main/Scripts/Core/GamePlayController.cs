@@ -43,14 +43,13 @@ public class GamePlayController : MSingleton<GamePlayController>
         fallingInterval = normalFallingInterval;
         isListenInput = true;
         inputDetector.IsActive = true;
-        if (!activeShape)
-        {
-            activeShape = spawner.SpawnShape();
-        }
+
     }
 
     private void OnEnable()
     {
+        EventsCenter.OnSceneLoaded += OnGameReady;
+
         inputDetector.OnMoveRight += OnMoveRight;
         inputDetector.OnMoveLeft += OnMoveLeft;
         inputDetector.OnDrop += OnDropImmidiate;
@@ -60,6 +59,8 @@ public class GamePlayController : MSingleton<GamePlayController>
 
     private void OnDisable()
     {
+        EventsCenter.OnSceneLoaded -= OnGameReady;
+
         inputDetector.OnMoveRight -= OnMoveRight;
         inputDetector.OnMoveLeft -= OnMoveLeft;
         inputDetector.OnDrop -= OnDropImmidiate;
@@ -93,6 +94,14 @@ public class GamePlayController : MSingleton<GamePlayController>
     }
 
 #endif
+
+    private void OnGameReady()
+    {
+        if (!activeShape)
+        {
+            activeShape = spawner.SpawnShape();
+        }
+    }
     public void PauseGame()
     {
         OnPauseGame?.Invoke();
