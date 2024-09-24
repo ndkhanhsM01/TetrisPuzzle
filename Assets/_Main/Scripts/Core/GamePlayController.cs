@@ -100,6 +100,7 @@ public class GamePlayController : MSingleton<GamePlayController>
         if (!activeShape)
         {
             activeShape = spawner.SpawnShape();
+            //activeShape = spawner.GetNextShape();
         }
     }
     public void PauseGame()

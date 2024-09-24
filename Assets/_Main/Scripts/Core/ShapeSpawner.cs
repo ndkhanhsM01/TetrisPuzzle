@@ -19,6 +19,7 @@ public class ShapeSpawner : MonoBehaviour
     [SerializeField] private Shape shapeCheat;
 
     private Transform shapesHolder;
+    private Queue<Shape> shapesQueue;
     private void Awake()
     {
         shapesHolder = transform;
@@ -36,7 +37,32 @@ public class ShapeSpawner : MonoBehaviour
         Gizmos.DrawWireSphere(spawnPosition, 0.5f);
     }
 
+    public Shape GetNextShape()
+    {
+        if (shapesQueue == null)
+        {
+            return null;
+        }
 
+        Shape result = shapesQueue.Dequeue();
+        PreviewNextShape.Instance.ShowNext(shapesQueue.Peek().ID);
+        PrepareShapes();
+
+        return result;
+    }
+    public void PrepareShapes()
+    {
+        int total = 2;
+        if(shapesQueue == null) shapesQueue = new Queue<Shape>();
+
+        int spawnNeed = total - shapesQueue.Count;
+        while(spawnNeed > 0)
+        {
+            Shape newShape = SpawnShape();
+            shapesQueue.Enqueue(newShape);
+            spawnNeed--;
+        }
+    }
     public Shape SpawnShape()
     {
         Shape shape = null;
