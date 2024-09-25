@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine;
@@ -12,6 +13,12 @@ namespace MLib
         [SerializeField] private string fileName = "SaveData.json";
 
         [HideInInspector] public LocalData LocalData;
+
+        public int Coin => LocalData == null ? -1 : LocalData.coin;
+
+        public int usingBackground => LocalData == null ? -1 : LocalData.usingBackground;
+        public Dictionary<int, bool> ItemsBackground => LocalData == null ? null : LocalData.itemsBackground;
+
         protected override void Awake()
         {
             base.Awake();

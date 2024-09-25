@@ -20,7 +20,7 @@ namespace MLib
         public class Setting
         {
             public float introDuration = 0f;
-            public float outroDuration = 0.5f;
+            public float outroDuration = 0f;
         }
         [SerializeField] private Setting setting = new();
 

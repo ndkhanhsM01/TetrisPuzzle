@@ -15,7 +15,7 @@ public class PanelHome : MPanel
     }
     public void OnClick_Shop()
     {
-
+        MUIManager.Instance.ShowPanel<PanelShop>();
     }
     public void OnClick_Setting()
     {
