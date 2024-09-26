@@ -13,6 +13,7 @@ public abstract class ShopTapView: MonoBehaviour
 
     [SerializeField] protected List<ShopItem> all_Items;
 
+    public List<ShopItem> AllItems;
     private void OnEnable()
     {
         EventsCenter.OnSceneLoaded += RegistDatasItem;

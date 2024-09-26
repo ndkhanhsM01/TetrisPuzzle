@@ -14,7 +14,19 @@ namespace MLib
 
         [HideInInspector] public LocalData LocalData;
 
-        public int Coin => LocalData == null ? -1 : LocalData.coin;
+        public int Coin
+        {
+            get
+            {
+                return LocalData == null ? -1 : LocalData.coin;
+            }
+            set
+            {
+                if (LocalData == null) return;
+                LocalData.coin = value;
+                EventsCenter.OnCoinChanged?.Invoke(value);
+            }
+        }
 
         public int usingBackground => LocalData == null ? -1 : LocalData.usingBackground;
         public Dictionary<int, bool> ItemsBackground => LocalData == null ? null : LocalData.itemsBackground;

@@ -15,7 +15,7 @@ namespace MLib
                 if (File.Exists(path))
                 {
                     string content = File.ReadAllText(path);
-                    result = JsonUtility.FromJson<T>(content);
+                    result = JsonConvert.DeserializeObject<T>(content);
                     Debug.LogWarning($"Read data <{typeof(T)}> from file: {path}");
                 }
                 else

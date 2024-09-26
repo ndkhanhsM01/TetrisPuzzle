@@ -16,11 +16,20 @@ public class SOItemBackground : SOItemShop
 
     public override void Unlock()
     {
-        DataManager.Instance.LocalData.itemsBackground[id] = true;
+        saveData[id] = true;
     }
 
-    public override void Use()
+    public override void Equip()
     {
-        
+        DataManager.Instance.LocalData.usingBackground = id;
+    }
+
+    public override void UnEquip()
+    {
+        DataManager.Instance.LocalData.usingBackground = -1;
+    }
+    public override bool IsUsing()
+    {
+        return DataManager.Instance.usingBackground == id;
     }
 }

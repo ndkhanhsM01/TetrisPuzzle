@@ -17616,10 +17616,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1282814944934934081, guid: f9f852a37459525499cd6ec485b708ae, type: 3}
-      propertyPath: testInputMobile
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1375767989809800956, guid: f9f852a37459525499cd6ec485b708ae, type: 3}
       propertyPath: m_Name
       value: GamePlayController

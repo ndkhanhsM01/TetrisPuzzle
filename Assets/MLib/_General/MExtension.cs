@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace MLib
 {
@@ -68,5 +70,14 @@ namespace MLib
             }
         }
         #endregion
+
+        public static void AddListener(this Button button, UnityAction action)
+        {
+            button.onClick.AddListener(action);
+        }
+        public static void RemoveListener(this Button button, UnityAction action)
+        {
+            button.onClick.RemoveListener(action);
+        }
     }
 }

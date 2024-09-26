@@ -14,10 +14,12 @@ public class PanelShop: MPanel
     private ShopTapView activeTab;
     private void OnEnable()
     {
+        btnBuy.AddListener(OnClick_Buy);
         OnSelectItem += HandleItemSelect;
     }
     private void OnDisable()
     {
+        btnBuy.RemoveListener(OnClick_Buy);
         OnSelectItem -= HandleItemSelect;
     }
     public override void Show(Action onFinish)
@@ -39,22 +41,25 @@ public class PanelShop: MPanel
     {
         if (!itemSelect) return;
 
+        DataManager.Instance.Coin -= itemSelect.Info.Price;
         itemSelect.Info.Unlock();
-        itemSelect.Info.Use();
-        if (!activeTab) activeTab.Reload();
+
+        if (activeTab) activeTab.Reload();
+
+        itemSelect.Select();
     }
     private void HandleItemSelect(ShopItem item)
     {
-        if (!item) return;
+        var newItem = item;
+        if (!newItem) return;
 
         if (itemSelect) itemSelect.UnSelect();
 
-        itemSelect = item;
-        if (item.Info.IsUnlock())
+        if (newItem.Info.IsUnlock())
         {
             btnBuy.SetActive(false);
         }
-        else if (DataManager.Instance.Coin >= item.Info.Price)
+        else if (DataManager.Instance.Coin >= newItem.Info.Price)
         {
             btnBuy.SetActive(true);
         }
@@ -62,7 +67,11 @@ public class PanelShop: MPanel
         {
             btnBuy.SetActive(false);
         }
+
+        //------------
+        itemSelect = newItem;
     }
+
     private void HandleUseItem(SOItemShop item)
     {
 

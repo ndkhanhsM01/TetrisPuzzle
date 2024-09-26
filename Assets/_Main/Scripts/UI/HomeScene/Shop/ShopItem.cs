@@ -3,11 +3,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class ShopItem: MonoBehaviour
+public class ShopItem: MonoBehaviour
 {
     [SerializeField] protected Image imgPreview;
     [SerializeField] protected TMP_Text tmpPrice;
     [SerializeField] protected Button button;
+    [SerializeField] protected GameObject goPrice;
     [SerializeField] protected GameObject goSelect;
     [SerializeField] protected GameObject goEquiped;
 
@@ -28,10 +29,11 @@ public abstract class ShopItem: MonoBehaviour
         imgPreview.sprite = info.Preview;
         tmpPrice.text = $"{info.Price}";
 
+        bool isUnlock = info.IsUnlock();
+        goPrice.SetActive(!info.IsUnlock());
+        goEquiped.SetActive(info.IsUsing() && info.IsUnlock());
         goSelect.SetActive(false);
-        goEquiped.SetActive(IsUsing());
     }
-    protected abstract bool IsUsing();
     public void Select()
     {
         goSelect.SetActive(true);
@@ -43,10 +45,12 @@ public abstract class ShopItem: MonoBehaviour
     public void Equip()
     {
         goEquiped.SetActive(true);
+        info.Equip();
     }
     public void UnEquip()
     {
         goEquiped.SetActive(false);
+        info.UnEquip();
     }
 
     private void OnClick()

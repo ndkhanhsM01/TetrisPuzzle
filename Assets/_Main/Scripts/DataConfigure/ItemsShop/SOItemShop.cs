@@ -16,9 +16,11 @@ public abstract class SOItemShop: ScriptableObject
     public int ID => id;
     public Sprite Preview => preview;
     public int Price => price;
-    public abstract void Use();
+    public abstract void Equip();
+    public abstract void UnEquip();
     public abstract void Unlock();
     public abstract bool IsUnlock();
+    public abstract bool IsUsing();
 
 #if UNITY_EDITOR
     public void SetIdDirty(int id)
