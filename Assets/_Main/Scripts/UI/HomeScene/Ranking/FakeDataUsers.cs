@@ -45,6 +45,7 @@ public class FakeDataUsers: ScriptableObject
 
             UserRanking userRanking = new UserRanking()
             {
+                id = (int) time,
                 index = index,
                 name = randomName,
                 score = score,

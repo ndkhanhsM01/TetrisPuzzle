@@ -28,6 +28,20 @@ namespace MLib
             }
         }
 
+        public string UserName
+        {
+            get
+            {
+                return LocalData == null ? null : LocalData.userName;
+            }
+            set
+            {
+                if(LocalData == null) return;
+                LocalData.userName = value;
+                EventsCenter.OnUserNameChanged?.Invoke(value);
+            }
+        }
+
         public int usingBackground => LocalData == null ? -1 : LocalData.usingBackground;
         public Dictionary<int, bool> ItemsBackground => LocalData == null ? null : LocalData.itemsBackground;
 

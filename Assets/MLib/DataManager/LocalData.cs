@@ -6,6 +6,8 @@ namespace MLib
     [System.Serializable]
     public class LocalData
     {
+        public string userName;
+
         public bool isPlayMusic = true;
         public bool isPlaySoundFX = true;
 
@@ -17,6 +19,7 @@ namespace MLib
         public Dictionary<int, bool> itemsBackground = new Dictionary<int, bool>();
         public LocalData()
         {
+            userName = GameConstraint.DefaultNameUser;
             isPlayMusic = true;
             isPlaySoundFX = true;
             itemsBackground = new Dictionary<int, bool>();

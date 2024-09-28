@@ -5,6 +5,7 @@ using System;
 [System.Serializable]
 public class UserRanking
 {
+    public int id;
     public int index;
     public string name;
     public double timestamp;
@@ -20,6 +21,7 @@ public class UserRanking
 
         UserRanking newData = new UserRanking()
         {
+            id = (int) timestamp,
             name = name,
             score = score,
             timestamp = timeData

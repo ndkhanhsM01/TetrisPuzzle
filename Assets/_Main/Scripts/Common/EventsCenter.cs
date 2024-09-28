@@ -13,4 +13,9 @@ public static class EventsCenter
     /// Will be called when coins amount were be changed
     /// </summary>
     public static Action<int> OnCoinChanged;
+
+    /// <summary>
+    /// Will be called when user name was be changed
+    /// </summary>
+    public static Action<string> OnUserNameChanged;
 }
