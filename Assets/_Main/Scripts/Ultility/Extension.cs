@@ -49,4 +49,15 @@ public static class Extension
     {
         return array[Random.Range(0, array.Length)];
     }
+    public static T[] GetRange<T>(this T[] array, int from, int to)
+    {
+        T[] result = new T[to - from];
+        int count = 0;
+        for (int i = from; i < to; i++)
+        {
+            result[count] = array[i];
+            count++;
+        }
+        return result;
+    }
 }

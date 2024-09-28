@@ -11,7 +11,7 @@ public class PanelHome : MPanel
 
     public void OnClick_Rank()
     {
-
+        MUIManager.Instance.ShowPanel<PanelRanking>();
     }
     public void OnClick_Shop()
     {
@@ -19,6 +19,6 @@ public class PanelHome : MPanel
     }
     public void OnClick_Setting()
     {
-
+        MUIManager.Instance.ShowPanel<SettingPanel>();
     }
 }
