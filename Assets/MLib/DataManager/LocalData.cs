@@ -32,9 +32,17 @@ namespace MLib
             Dictionary<int, bool> dictDatas = new Dictionary<int, bool>();
             foreach (SOItemShop data in allData)
             {
-                dictDatas.Add(data.ID, false);
+                if (data.IsDefault)
+                {
+                    dictDatas.Add(data.ID, true);
+                    usingBackground = data.ID;
+                }
+                else
+                {
+                    dictDatas.Add(data.ID, false);
+                }
             }
-            DataManager.Instance.LocalData.itemsBackground = dictDatas;
+            itemsBackground = dictDatas;
         }
     }
 }

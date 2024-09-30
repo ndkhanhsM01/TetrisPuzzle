@@ -10,12 +10,14 @@ using UnityEditor;
 public abstract class SOItemShop: ScriptableObject
 {
     [SerializeField] protected int id;
+    [SerializeField] protected bool isDefault;
     [SerializeField] protected Sprite preview;
     [SerializeField] protected int price;
 
     public int ID => id;
     public Sprite Preview => preview;
     public int Price => price;
+    public bool IsDefault => isDefault;
     public abstract void Equip();
     public abstract void UnEquip();
     public abstract void Unlock();
@@ -26,7 +28,7 @@ public abstract class SOItemShop: ScriptableObject
     public void SetIdDirty(int id)
     {
         this.id = id;
-        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
     }
 #endif
 }

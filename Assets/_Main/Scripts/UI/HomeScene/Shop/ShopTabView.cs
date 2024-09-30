@@ -14,15 +14,6 @@ public abstract class ShopTapView: MonoBehaviour
     [SerializeField] protected List<ShopItem> all_Items;
 
     public List<ShopItem> AllItems;
-    private void OnEnable()
-    {
-        EventsCenter.OnSceneLoaded += RegistDatasItem;
-    }
-
-    private void OnDisable()
-    {
-        EventsCenter.OnSceneLoaded -= RegistDatasItem;
-    }
     public void Select()
     {
         MUIManager.Instance.GetPanel<PanelShop>().SetActiveTab(this);
@@ -63,14 +54,5 @@ public abstract class ShopTapView: MonoBehaviour
             all_Items.Add(itemClone);
         }
     }
-    public abstract void RegistDatasItem();
-#if UNITY_EDITOR
-    protected virtual void OnValidate()
-    {
-        for (int i = 0; i < allDatas.Length; i++)
-        {
-            allDatas[i].SetIdDirty(i);
-        }
-    }
-#endif
+    //public abstract void RegistDatasItem();
 }
