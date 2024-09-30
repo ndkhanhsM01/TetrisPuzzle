@@ -28,6 +28,7 @@ public abstract class SOItemShop: ScriptableObject
     public void SetIdDirty(int id)
     {
         this.id = id;
+        EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssets();
     }
 #endif

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3d2ab5790befb45a83eaef0def13d5, type: 3}
   m_Name: BG_4
   m_EditorClassIdentifier: 
-  id: 3
+  id: 4
+  isDefault: 0
   preview: {fileID: 21300000, guid: 1b5efe770b935f9459d3e1dfc0002001, type: 3}
   price: 500
