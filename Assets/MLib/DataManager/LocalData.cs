@@ -12,6 +12,7 @@ namespace MLib
         public bool isPlaySoundFX = true;
 
         // Storage
+        public int highScore;
         public int coin;
 
         // Data unlock

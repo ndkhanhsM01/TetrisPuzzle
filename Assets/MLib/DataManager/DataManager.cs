@@ -42,6 +42,21 @@ namespace MLib
             }
         }
 
+        public int HighScore => LocalData == null ? -1 : LocalData.highScore;
+
+        public bool TrySetNewHighScore(int score)
+        {
+            if(LocalData.highScore < score)
+            {
+                LocalData.highScore = score;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public int usingBackground => LocalData == null ? -1 : LocalData.usingBackground;
         public Dictionary<int, bool> ItemsBackground => LocalData == null ? null : LocalData.itemsBackground;
 

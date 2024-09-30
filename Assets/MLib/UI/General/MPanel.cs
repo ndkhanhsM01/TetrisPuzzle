@@ -38,7 +38,7 @@ namespace MLib
         {
             if (!canvas)
             {
-                Debug.LogError("My panel have to have canvas, right?");
+                Debug.LogError("My panel has to have canvas, right?");
                 return;
             }
             canvas.enabled = true;
