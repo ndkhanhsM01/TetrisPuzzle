@@ -8,7 +8,7 @@ public class PanelRanking : MPanel
     [SerializeField] private FakeDataUsers fakeDataUsers;
 
     [Header("My score")]
-    [SerializeField] private UserScoreItem myScoreItem;
+    [SerializeField] private PlayerScoreItem myScoreItem;
 
     [Header("Top 3")]
     [SerializeField] private UserScoreItem[] scoreItems_Top3;
@@ -33,6 +33,7 @@ public class PanelRanking : MPanel
     {
         this.datasUser = datasUser;
 
+        myScoreItem.Setup();
         SetupTop3(datasUser.GetRange(0, 3));
         SetupTop7(datasUser.GetRange(3, 10));
     }

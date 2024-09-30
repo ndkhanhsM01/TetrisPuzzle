@@ -245,7 +245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 552}
+  m_AnchoredPosition: {x: 0, y: 504}
   m_SizeDelta: {x: 1080, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2874290206629296262
@@ -477,7 +477,7 @@ MonoBehaviour:
     introDuration: 0
     outroDuration: 0
   fakeDataUsers: {fileID: 11400000, guid: d8640dbece9875c4b9cb804cb3342523, type: 2}
-  myScoreItem: {fileID: 2172908145143574298}
+  myScoreItem: {fileID: 3138014823721484387}
   scoreItems_Top3:
   - {fileID: 5985464412264289706}
   - {fileID: 4177435081108424779}
@@ -971,7 +971,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015258789, y: -61}
+  m_AnchoredPosition: {x: -0.000015258789, y: -109}
   m_SizeDelta: {x: 1080, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2318276112906821958
@@ -1863,7 +1863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 770205919324339195, guid: b9255e9356d406943b040bb330e5ba45, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -604
+      value: -652
       objectReference: {fileID: 0}
     - target: {fileID: 770205919324339195, guid: b9255e9356d406943b040bb330e5ba45, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1886,15 +1886,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9255e9356d406943b040bb330e5ba45, type: 3}
---- !u!114 &2172908145143574298 stripped
+--- !u!114 &3138014823721484387 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8836592992896004347, guid: b9255e9356d406943b040bb330e5ba45, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5695414341558607746, guid: b9255e9356d406943b040bb330e5ba45, type: 3}
   m_PrefabInstance: {fileID: 7243577038426103777}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df58d5aa70dafca41b3232f87a1923b7, type: 3}
+  m_Script: {fileID: 11500000, guid: ef17e5b363914c6418a5bcb2a266558d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7941544629875942426 stripped

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 770205919324339195}
   - component: {fileID: 952438161482550675}
-  - component: {fileID: 8836592992896004347}
+  - component: {fileID: 5695414341558607746}
   - component: {fileID: 2672996177600557479}
   m_Layer: 5
   m_Name: MyScoreItem
@@ -52,7 +52,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584477083707123524}
   m_CullTransparentMesh: 1
---- !u!114 &8836592992896004347
+--- !u!114 &5695414341558607746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1584477083707123524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df58d5aa70dafca41b3232f87a1923b7, type: 3}
+  m_Script: {fileID: 11500000, guid: ef17e5b363914c6418a5bcb2a266558d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tmpIndex: {fileID: 999392112359143434}
@@ -512,8 +512,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -170.19458, y: 0}
-  m_SizeDelta: {x: 255.6108, y: 150}
+  m_AnchoredPosition: {x: -188.27289, y: 0}
+  m_SizeDelta: {x: 220, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3762609746832485062
 CanvasRenderer:
