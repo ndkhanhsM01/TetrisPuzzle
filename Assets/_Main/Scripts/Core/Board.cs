@@ -166,9 +166,9 @@ public class Board : MonoBehaviour
 
     public bool IsOverLimit(Shape shape)
     {
-        foreach(Transform child in shape.Body)
+        foreach(Cell cell in shape.Cells)
         {
-            if (child.position.y > (height - 1)) return true;
+            if (cell.Body.position.y > (height - 1)) return true;
         }
 
         return false;
