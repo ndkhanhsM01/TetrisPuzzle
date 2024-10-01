@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using static UnityEditorInternal.VersionControl.ListControl;
 
 
 #if UNITY_EDITOR
@@ -20,33 +22,68 @@ public class ShapeLibrary: ScriptableObject
 
     public ShapeConfig[] All => library;
 
-    private Dictionary<int, Shape> shapePooler = new Dictionary<int, Shape>();
+    private Dictionary<int, List<Shape>> shapePooler = new Dictionary<int, List<Shape>>();
+
+    private Transform shapeHolder;
     public void InitializeShapePooler(Transform parent)
     {
+        shapeHolder = parent;
         shapePooler = new();
+        int count = 2;
         foreach (ShapeConfig config in All)
         {
-            Shape shape = Instantiate(config.Prefab, parent);
-            shape.SetActive(true);
-            shapePooler.Add(shape.ID, shape);
+            int id = config.Prefab.ID;
+            if (shapePooler.ContainsKey(id)) continue;
+
+            List<Shape> listShapes = new List<Shape>();
+            for (int i = 0; i < count; i++)
+            {
+                Shape shape = Instantiate(config.Prefab, parent);
+                shape.SetActive(false);
+                shape.InPool = true;
+                listShapes.Add(shape);
+            }
+            shapePooler.Add(id, listShapes);
         }
     }
     public Shape GetRandom()
     {
-        int target = Random.Range(0, shapePooler.Count);
-        int count = 0;
-        foreach(Shape shape in shapePooler.Values)
+        int target = Random.Range(0, shapePooler.Keys.ToArray().Length);
+
+        return GetReadyShape(target);
+    }
+
+    public Shape GetReadyShape(int id)
+    {
+        List<Shape> listShape = shapePooler[id];
+
+        foreach(Shape shape in listShape)
         {
-            if (count == target)
-            {
-                //shape.SetActive(true);
-                return shape;
-            }
-            count++;
+            if (!shape.InPool) continue;
+
+            shape.InPool = false;
+            return shape;
         }
 
-        Debug.LogError("Wronggg!!");
-        return null;
+
+        // if not enough
+        Shape prefab = null;
+        foreach (ShapeConfig config in All)
+        {
+            if(config.Prefab.ID == id)
+            {
+                prefab = config.Prefab;
+                break;
+            }
+        }
+
+        if (!prefab) return null;
+
+        Shape clone = Instantiate(prefab, shapeHolder);
+        clone.SetActive(false);
+        listShape.Add(clone);
+        clone.InPool = false;
+        return clone;
     }
 
 #if UNITY_EDITOR

@@ -30,6 +30,7 @@ public class ShapeSpawner : MonoBehaviour
 
         cellPooler.Initialize(shapesHolder);
         shapeLibrary.InitializeShapePooler(shapesHolder);
+        PrepareShapes();
     }
     private void OnDrawGizmosSelected()
     {
@@ -37,9 +38,9 @@ public class ShapeSpawner : MonoBehaviour
         Gizmos.DrawWireSphere(spawnPosition, 0.5f);
     }
 
-    public Shape GetNextShape()
+    public Shape GetNextShape(bool active = true)
     {
-        if (shapesQueue == null)
+        if (shapesQueue == null || shapesQueue.Count <= 0)
         {
             return null;
         }
@@ -48,6 +49,7 @@ public class ShapeSpawner : MonoBehaviour
         PreviewNextShape.Instance.ShowNext(shapesQueue.Peek().ID);
         PrepareShapes();
 
+        if(result != null) result.SetActive(active);
         return result;
     }
     public void PrepareShapes()
@@ -59,11 +61,17 @@ public class ShapeSpawner : MonoBehaviour
         while(spawnNeed > 0)
         {
             Shape newShape = SpawnShape();
+            newShape.SetActive(false);
             shapesQueue.Enqueue(newShape);
             spawnNeed--;
         }
     }
-    public Shape SpawnShape()
+    public void ReturnShapeToPool(Shape shape)
+    {
+        shape.SetActive(false);
+        shape.InPool = true;
+    }
+    private Shape SpawnShape()
     {
         Shape shape = null;
         Vector3 targetPosition = new Vector3(spawnPosition.ToIntRound().x, spawnPosition.ToIntRound().y);
@@ -71,9 +79,9 @@ public class ShapeSpawner : MonoBehaviour
         if (!enableCheat)
         {
             shape = shapeLibrary.GetRandom();
+            //shape = GetNextShape();
             shape.Initialize();
             shape.Body.position = targetPosition;
-
         }
         else
         {

@@ -47,6 +47,7 @@ MonoBehaviour:
   ID: 1
   canRotate: 1
   cellPooler: {fileID: 11400000, guid: 013c56f2be96c244396f49c25e8bfd46, type: 2}
+  cellPrefab: {fileID: 7155519377188171886, guid: 90002055a578961459a2b630e6092f1e, type: 3}
   defaultColor: {r: 0.07058824, g: 0.56078434, b: 1, a: 1}
   cellsPosition:
   - {x: 0, y: 0}

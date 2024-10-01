@@ -1,4 +1,5 @@
 using MLib;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class Shape : MonoBehaviour
     public int ID;
     [SerializeField] private bool canRotate = true;
     [SerializeField] private CellPooler cellPooler;
+    [SerializeField] private Cell cellPrefab;
     [SerializeField] private Color defaultColor = Color.white;
     [SerializeField] private Vector2[] cellsPosition;
 
@@ -18,6 +20,8 @@ public class Shape : MonoBehaviour
     public List<Cell> Cells { get; private set; }
 
     private bool activeTrail = false;
+
+    public bool InPool { get; set; }
     private void Awake()
     {
         Body = transform;
@@ -49,6 +53,23 @@ public class Shape : MonoBehaviour
             Vector3 position = cellsPosition[i];
             position.z = Body.position.z;
             Cells.Add(cellPooler.GetOne(Body, position));
+        }
+        DisableTrail();
+        SetColor(defaultColor);
+    }
+
+    [MButton]
+    private void InitPreview()
+    {
+        Cells = new List<Cell>();
+        Transform center = transform;
+        for (int i = 0; i < cellsPosition.Length; i++)
+        {
+            Cell cellClone = Instantiate(cellPrefab, center);
+            Cells.Add(cellClone);
+            Vector3 position = cellsPosition[i];
+            position.z = center.position.z;
+            cellClone.transform.localPosition = position;
         }
         DisableTrail();
         SetColor(defaultColor);

@@ -99,8 +99,7 @@ public class GamePlayController : MSingleton<GamePlayController>
     {
         if (!activeShape)
         {
-            activeShape = spawner.SpawnShape();
-            //activeShape = spawner.GetNextShape();
+            activeShape = spawner.GetNextShape();
         }
     }
     public void PauseGame()
@@ -150,7 +149,9 @@ public class GamePlayController : MSingleton<GamePlayController>
 
         await board.CheckClearAllRows();
         isStopFalling = false;
-        activeShape = spawner.SpawnShape();
+
+        spawner.ReturnShapeToPool(activeShape);
+        activeShape = spawner.GetNextShape();
     }
     #endregion
 
