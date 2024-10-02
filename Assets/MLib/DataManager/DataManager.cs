@@ -78,7 +78,8 @@ namespace MLib
         {
             // load file
             string path = Application.persistentDataPath + "/" + fileName;
-            LocalData = MHelper.LoadDataFromFile<LocalData>(path);
+            LocalData = MHelper.LoadDataFromFile<LocalData>(path, true);
+            if( LocalData == null ) LocalData = new LocalData();
         }
 
         public void Save()
