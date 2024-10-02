@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class PlayerScoreItem: MonoBehaviour
 {
+    [SerializeField] private FakeDataUsers fakeDataUsers;
+
+    [Header("References")]
     [SerializeField] private TMP_Text tmpIndex;
     [SerializeField] private TMP_Text tmpName;
     [SerializeField] private TMP_Text tmpTime;
@@ -27,8 +30,12 @@ public class PlayerScoreItem: MonoBehaviour
 
     private void OnSceneLoaded()
     {
-        playerRanking = UserRanking.CreateNew(localData.userName, localData.highScore);
-        playerRanking.index = Random.Range(15, 40);
+        playerRanking = UserRanking.CreateNew(localData.userName, localData.highScore, localData.userID);
+
+        if(fakeDataUsers.CheckTop10ContainsPlayer(playerRanking) == false)
+        {
+            playerRanking.index = Random.Range(15, 40);
+        }
     }
 
     private void OnNameChanged(string newName)

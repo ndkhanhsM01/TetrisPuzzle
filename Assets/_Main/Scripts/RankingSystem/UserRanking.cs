@@ -11,7 +11,7 @@ public class UserRanking
     public double timestamp;
     public int score;
 
-    public static UserRanking CreateNew(string name, int score, double timestamp = -1)
+    public static UserRanking CreateNew(string name, int score, int id, double timestamp = -1)
     {
         double timeData = timestamp;
         if(timeData == -1)
@@ -21,7 +21,7 @@ public class UserRanking
 
         UserRanking newData = new UserRanking()
         {
-            id = (int) timestamp,
+            id = id,
             name = name,
             score = score,
             timestamp = timeData

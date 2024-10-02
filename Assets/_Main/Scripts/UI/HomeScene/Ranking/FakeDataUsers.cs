@@ -1,5 +1,7 @@
 using MLib;
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "FakeDataUsers", menuName = "Tetris Setup/Fake Data Users")]
 public class FakeDataUsers: ScriptableObject
@@ -17,6 +19,26 @@ public class FakeDataUsers: ScriptableObject
     public UserRanking Get(int index)
     {
         return datas[index];
+    }
+
+    public bool CheckTop10ContainsPlayer(UserRanking playerRanking)
+    {
+        UserRanking rankLowest = datas[datas.Length - 1];
+
+        if (playerRanking.score <= rankLowest.score) return false;
+        
+        List<UserRanking> listUserRanking = new List<UserRanking>();
+        listUserRanking.AddRange(datas);
+        listUserRanking.Add(playerRanking);
+
+        listUserRanking = listUserRanking.OrderByDescending(ranking => ranking.score).ToList();
+        for(int i = 0; i < listUserRanking.Count; i++)
+        {
+            listUserRanking[i].index = i;
+        }
+
+        datas = listUserRanking.ToArray();
+        return true;
     }
 
     [MButton]
