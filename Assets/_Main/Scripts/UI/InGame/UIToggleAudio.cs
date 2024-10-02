@@ -49,8 +49,14 @@ public class UIToggleAudio: MonoBehaviour
 
         switch (type)
         {
-            case AudioType.Music: DataManager.Instance.LocalData.isPlayMusic = isActive; break;
-            case AudioType.SoundFX: DataManager.Instance.LocalData.isPlaySoundFX = isActive; break;
+            case AudioType.Music: 
+                DataManager.Instance.LocalData.isPlayMusic = isActive;
+                MAudioManager.Instance.SetVolumeMusic(isActive ? 1 : 0);
+                break;
+            case AudioType.SoundFX: 
+                DataManager.Instance.LocalData.isPlaySoundFX = isActive;
+                MAudioManager.Instance.SetVolumeSFX(isActive ? 1 : 0);
+                break;
         }
 
         UpdateUI();

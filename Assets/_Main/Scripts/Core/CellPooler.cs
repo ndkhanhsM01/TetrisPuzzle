@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
 [CreateAssetMenu(fileName = "Cell Pooler", menuName = ("Tetris Setup/Cell Pooler"))]
 public class CellPooler: ScriptableObject

@@ -1055,6 +1055,7 @@ GameObject:
   - component: {fileID: 2545333157206816822}
   - component: {fileID: 4022807135648790662}
   - component: {fileID: 405248600070322105}
+  - component: {fileID: 478198135195171622}
   m_Layer: 5
   m_Name: BtnEquip
   m_TagString: Untagged
@@ -1164,6 +1165,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &478198135195171622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6098371741651210632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 405248600070322105}
 --- !u!1 &6311544158430571838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,6 +1324,7 @@ GameObject:
   - component: {fileID: 6099504323495398684}
   - component: {fileID: 3719150736194089190}
   - component: {fileID: 4247731205310422185}
+  - component: {fileID: 4933904971455537763}
   m_Layer: 5
   m_Name: BtnBack
   m_TagString: Untagged
@@ -1431,6 +1446,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4933904971455537763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6709468592654121093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 4247731205310422185}
 --- !u!1 &6934784947356147766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1543,7 @@ GameObject:
   - component: {fileID: 5836274310185208764}
   - component: {fileID: 840496152012687244}
   - component: {fileID: 3130706498377527296}
+  - component: {fileID: 5678361012841692654}
   m_Layer: 5
   m_Name: BtnBuy
   m_TagString: Untagged
@@ -1624,6 +1653,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5678361012841692654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7697744198004795069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 3130706498377527296}
 --- !u!1 &8225628706184647505
 GameObject:
   m_ObjectHideFlags: 0

@@ -132,6 +132,7 @@ public class GamePlayController : MSingleton<GamePlayController>
         if (!activeShape) return;
         if (board.IsValidPosition(activeShape)) return;
 
+        if (MAudioManager.Instance) MAudioManager.Instance.PlaySFX(MSoundType.ShapeLand);
         activeShape.MoveUp();
         board.StoreShapeInGrid(activeShape);
         ghostShape.DisableGhost();

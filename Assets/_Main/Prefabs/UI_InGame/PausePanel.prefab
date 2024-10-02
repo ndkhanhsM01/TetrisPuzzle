@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 6137927695300950628}
   - component: {fileID: 3193352055838613047}
   - component: {fileID: 3777028139284749607}
+  - component: {fileID: 9162229576321700008}
   m_Layer: 5
   m_Name: BtnRestart
   m_TagString: Untagged
@@ -267,6 +268,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9162229576321700008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070938878136594751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 3777028139284749607}
 --- !u!1 &1683181982054096140
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +503,7 @@ GameObject:
   - component: {fileID: 7169337107427203968}
   - component: {fileID: 1913134927610552376}
   - component: {fileID: 47127974042210475}
+  - component: {fileID: 1958979976215376429}
   m_Layer: 5
   m_Name: BtnSoundFX
   m_TagString: Untagged
@@ -613,6 +628,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1958979976215376429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3410266169976437912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 47127974042210475}
 --- !u!1 &3822934493640345697
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,6 +876,7 @@ GameObject:
   - component: {fileID: 2986604486007417252}
   - component: {fileID: 7243568726057987737}
   - component: {fileID: 7744095259370490649}
+  - component: {fileID: 3819683986681169934}
   m_Layer: 5
   m_Name: BtnHome
   m_TagString: Untagged
@@ -969,6 +998,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3819683986681169934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093669759152405787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 7744095259370490649}
 --- !u!1 &6682318263062336669
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,6 +1023,7 @@ GameObject:
   - component: {fileID: 1311255253442405907}
   - component: {fileID: 7360398069423030491}
   - component: {fileID: 812703889915186852}
+  - component: {fileID: 3129869662446869499}
   m_Layer: 5
   m_Name: BtnResume
   m_TagString: Untagged
@@ -1102,6 +1145,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3129869662446869499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682318263062336669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 812703889915186852}
 --- !u!1 &6938694996969095118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,6 +1382,7 @@ GameObject:
   - component: {fileID: 3078937456820801666}
   - component: {fileID: 6832039248290302487}
   - component: {fileID: 6606836851288776232}
+  - component: {fileID: 6206161073339655464}
   m_Layer: 5
   m_Name: BtnMusic
   m_TagString: Untagged
@@ -1450,3 +1507,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6206161073339655464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8873619815149379081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 6606836851288776232}

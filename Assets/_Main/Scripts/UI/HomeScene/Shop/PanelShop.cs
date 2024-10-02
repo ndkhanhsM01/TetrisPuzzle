@@ -47,10 +47,13 @@ public class PanelShop: MPanel
     {
         if (!itemSelect) return;
 
+        if (MAudioManager.Instance) MAudioManager.Instance.PlaySFX(MSoundType.EarnCoin);
         DataManager.Instance.Coin -= itemSelect.Info.Price;
         itemSelect.Info.Unlock();
 
         if (activeTab) activeTab.Reload();
+        HandleItemSelect(itemSelect);
+        itemSelect.Select();
     }
 
     private void OnClick_Equip()

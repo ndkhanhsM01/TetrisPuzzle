@@ -18,7 +18,7 @@ namespace MLib
             }
             else
             {
-                Destroy(Instance);
+                Destroy(gameObject);
                 Debug.LogWarning($"Already exist other instance of <{typeof(T)}>, so destroyed it!");
             }
 

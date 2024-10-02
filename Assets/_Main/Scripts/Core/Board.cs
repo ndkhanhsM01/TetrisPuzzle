@@ -114,6 +114,7 @@ public class Board : MonoBehaviour
 
     private void ClearRow(int y)
     {
+        if (MAudioManager.Instance) MAudioManager.Instance.PlaySFX(MSoundType.BreakRow);
         for(int x = 0;x< width; x++)
         {
             if (Grid[x, y] == null) continue;
@@ -147,13 +148,13 @@ public class Board : MonoBehaviour
         for(int y = 0; y< height; y++)
         {
             if (!IsRowComplete(y)) continue;
-
+            await UniTask.WaitForSeconds(0.1f);
             if (!scoreSystem.InCombo) scoreSystem.StartNewCombo();
             ClearRow(y);
             scoreSystem.IncreaseComboCount();
             await UniTask.WaitForSeconds(0.1f);
             ShiftRowsDown(y + 1);
-            await UniTask.WaitForSeconds(0.1f);
+            //await UniTask.WaitForSeconds(0.1f);
             y--;
         }
 

@@ -33,9 +33,12 @@ namespace MLib
 
     public enum MSoundType
     {
-        // example
         Background,
         ClickButton,
-        Win
+        Win,
+        EarnCoin,
+        GameOver,
+        BreakRow,
+        ShapeLand
     }
 }

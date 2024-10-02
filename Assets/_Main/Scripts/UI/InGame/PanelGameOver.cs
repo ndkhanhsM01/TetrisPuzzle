@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLib;
 using TMPro;
+using System;
 public class PanelGameOver : MPanel
 {
     [SerializeField] private TMP_Text tmpScore;
@@ -18,6 +19,18 @@ public class PanelGameOver : MPanel
     {
         EventsCenter.OnSceneLoaded -= OnSceneLoaded;
         GamePlayController.Instance.OnGameEnd -= OnEndGame;
+    }
+
+    public override void Show(Action onFinish)
+    {
+        base.Show(onFinish);
+
+        MAudioManager.Instance.SetVolumeMusic(0f);
+    }
+
+    private void ReturnBGMusic()
+    {
+        if (DataManager.Instance.LocalData.isPlayMusic) MAudioManager.Instance.SetVolumeMusic(1f);
     }
     private void OnSceneLoaded()
     {
@@ -43,15 +56,24 @@ public class PanelGameOver : MPanel
         tmpCoin.text = coin.ToString();
 
         DataManager.Instance.Coin += coin;
+
+        var audioManager = MAudioManager.Instance;
+        if(audioManager != null)
+        {
+            if (isHighScore) audioManager.PlaySFX(MSoundType.Win);
+            else audioManager.PlaySFX(MSoundType.GameOver);
+        }
     }
 
     public void OnClick_Retry()
     {
         MSceneManager.Instance.LoadScene(ConstraintSceneName.InGame);
+        ReturnBGMusic();
     }
 
     public void OnClick_Close()
     {
         MSceneManager.Instance.LoadScene(ConstraintSceneName.Home, 1f);
+        ReturnBGMusic();
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3901965482103867697}
   - component: {fileID: 1213384115447100993}
   - component: {fileID: 2013149050545921195}
+  - component: {fileID: 1170866679663338219}
   m_Layer: 5
   m_Name: BtnPlay
   m_TagString: Untagged
@@ -133,6 +134,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1170866679663338219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179892691064164993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 2013149050545921195}
 --- !u!1 &226396314890270661
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,6 +502,7 @@ GameObject:
   - component: {fileID: 2006702967828748247}
   - component: {fileID: 7076753147783349605}
   - component: {fileID: 3650088674891991267}
+  - component: {fileID: 7397100381477821445}
   m_Layer: 5
   m_Name: BtnSetting
   m_TagString: Untagged
@@ -609,6 +624,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7397100381477821445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144476732820849496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 3650088674891991267}
 --- !u!1 &2500317970304981444
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +724,7 @@ GameObject:
   - component: {fileID: 6860843508813078974}
   - component: {fileID: 751329121344944342}
   - component: {fileID: 4566743761009664}
+  - component: {fileID: 6268410466524698069}
   m_Layer: 5
   m_Name: BtnRank
   m_TagString: Untagged
@@ -817,6 +846,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6268410466524698069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2998008323602357286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 4566743761009664}
 --- !u!1 &3242184684017669110
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +924,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Home Scene
+  m_text: Tetris Puzzle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ebcca07331d0a44459e9a140a273ae69, type: 2}
   m_sharedMaterial: {fileID: -2661423641020486683, guid: ebcca07331d0a44459e9a140a273ae69, type: 2}
@@ -963,6 +1005,7 @@ GameObject:
   - component: {fileID: 8785988931210049728}
   - component: {fileID: 2043515821875218689}
   - component: {fileID: 1618874235051704444}
+  - component: {fileID: 9101880598550839188}
   m_Layer: 5
   m_Name: BtnShop
   m_TagString: Untagged
@@ -1084,6 +1127,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9101880598550839188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5520950054125653698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2517d0168ede141bb4e5be29adceb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1618874235051704444}
 --- !u!1 &6403248560704469496
 GameObject:
   m_ObjectHideFlags: 0

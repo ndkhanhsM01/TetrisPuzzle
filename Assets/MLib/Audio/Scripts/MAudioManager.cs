@@ -22,6 +22,14 @@ namespace MLib
             DictAudio = configure.GetDictAudio();
         }
 
+/*        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                PlaySFX(MSoundType.ClickButton);
+            }
+        }*/
+
         public void PlayMusic(MSoundType type)
         {
             if(DictAudio.TryGetValue(type, out MAudio audio))
@@ -47,6 +55,10 @@ namespace MLib
             }
         }
 
+        /// <summary>
+        /// Set volume of Music
+        /// </summary>
+        /// <param name="value">between 0 and 1</param>
         public void SetVolumeMusic(float value)
         {
             float percent = value;
@@ -55,6 +67,11 @@ namespace MLib
 
             mixer.SetFloat(nameMusicGroup, newValue);
         }
+
+        /// <summary>
+        /// Set volume of SFX
+        /// </summary>
+        /// <param name="value">between 0 and 1</param>
         public void SetVolumeSFX(float value)
         {
             float percent = value;

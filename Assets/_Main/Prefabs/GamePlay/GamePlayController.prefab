@@ -66,8 +66,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnLoad: 1
+  coin: 0
   score: 0
   scorePerRow: 100
+  coinPerRow: 5
   multiplePerCombo: 1
 --- !u!114 &1282814944934934081
 MonoBehaviour:
@@ -81,8 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6435b560ec52c254b8b80a2a4cb668d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testInputMobile: 1
-  debugTouch: 1
+  testInputMobile: 0
+  debugTouch: 0
   thresholdTouch: 1
   tapThreshold: 0.15
   dragThresholdHorizontal: 3
