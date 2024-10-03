@@ -10,11 +10,11 @@ public class UserScoreItem: MonoBehaviour
     [SerializeField] private TMP_Text tmpTime;
     [SerializeField] private TMP_Text tmpScore;
 
-    public void Setup(UserRanking userRanking)
+    public void Setup(int index, UserRanking userRanking)
     {
-        if(tmpIndex) tmpIndex.text = (userRanking.index + 1).ToString();
+        if(tmpIndex) tmpIndex.text = (index + 1).ToString();
         if(tmpName) tmpName.text = userRanking.name;
-        if(tmpTime) tmpTime.text = userRanking.GetTimeFormat_1();
+        if(tmpTime) tmpTime.text = $"#{userRanking.id}";
         if(tmpScore) tmpScore.text = userRanking.score.ToString();
     }
 }

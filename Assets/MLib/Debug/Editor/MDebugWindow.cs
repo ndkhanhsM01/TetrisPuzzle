@@ -137,7 +137,7 @@ namespace MLib
                 {
                     localData = new();
                     PlayerPrefs.DeleteAll();
-                    MHelper.SaveDataIntoFile(pathFileData, localData);
+                    MHelper.DeleteFile(pathFileData);
 
                     serializedData = JsonConvert.SerializeObject(localData, Formatting.Indented);
                 }

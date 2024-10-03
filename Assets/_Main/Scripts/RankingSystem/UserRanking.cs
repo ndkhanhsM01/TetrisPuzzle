@@ -6,7 +6,7 @@ using System;
 public class UserRanking
 {
     public int id;
-    public int index;
+    //public int index;
     public string name;
     public double timestamp;
     public int score;

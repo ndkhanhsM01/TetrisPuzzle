@@ -10,7 +10,11 @@ public class FakeDataUsers: ScriptableObject
     [SerializeField] private UserRanking[] datas;
 
     public UserRanking[] Datas => datas;
-
+    void OnEnable()
+    {
+        // Ensure that changes made in Play Mode are not saved
+        this.hideFlags = HideFlags.DontSave;
+    }
     public void Set(int index, UserRanking data)
     {
         datas[index] = data;
@@ -21,26 +25,14 @@ public class FakeDataUsers: ScriptableObject
         return datas[index];
     }
 
-    public bool CheckTop10ContainsPlayer(UserRanking playerRanking)
+    public bool CheckInTop10(UserRanking userRanking)
     {
         UserRanking rankLowest = datas[datas.Length - 1];
 
-        if (playerRanking.score <= rankLowest.score) return false;
-        
-        List<UserRanking> listUserRanking = new List<UserRanking>();
-        listUserRanking.AddRange(datas);
-        listUserRanking.Add(playerRanking);
-
-        listUserRanking = listUserRanking.OrderByDescending(ranking => ranking.score).ToList();
-        for(int i = 0; i < listUserRanking.Count; i++)
-        {
-            listUserRanking[i].index = i;
-        }
-
-        datas = listUserRanking.ToArray();
-        return true;
+        return userRanking.score >= rankLowest.score;
     }
 
+#if UNITY_EDITOR
     [MButton]
     public void RandomDatas()
     {
@@ -68,7 +60,6 @@ public class FakeDataUsers: ScriptableObject
             UserRanking userRanking = new UserRanking()
             {
                 id = (int) time,
-                index = index,
                 name = randomName,
                 score = score,
                 timestamp = time
@@ -77,4 +68,5 @@ public class FakeDataUsers: ScriptableObject
             datas[index] = userRanking;
         }
     }
+#endif
 }

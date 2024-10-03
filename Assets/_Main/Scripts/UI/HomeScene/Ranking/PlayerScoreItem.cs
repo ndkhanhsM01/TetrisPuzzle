@@ -15,40 +15,27 @@ public class PlayerScoreItem: MonoBehaviour
     [SerializeField] private TMP_Text tmpScore;
 
     private UserRanking playerRanking;
-    private LocalData localData => DataManager.Instance.LocalData;
     private void OnEnable()
     {
         EventsCenter.OnUserNameChanged += OnNameChanged;
-        EventsCenter.OnSceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         EventsCenter.OnUserNameChanged -= OnNameChanged;
-        EventsCenter.OnSceneLoaded -= OnSceneLoaded;
     }
-
-    private void OnSceneLoaded()
-    {
-        playerRanking = UserRanking.CreateNew(localData.userName, localData.highScore, localData.userID);
-
-        if(fakeDataUsers.CheckTop10ContainsPlayer(playerRanking) == false)
-        {
-            playerRanking.index = Random.Range(15, 40);
-        }
-    }
-
     private void OnNameChanged(string newName)
     {
         playerRanking.name = newName;
         tmpName.text = newName;
     }
 
-    public void Setup()
+    public void Setup(int index, UserRanking playerRanking)
     {
-        if (tmpIndex) tmpIndex.text = (playerRanking.index + 1).ToString();
+        this.playerRanking = playerRanking;
+        if (tmpIndex) tmpIndex.text = (index + 1).ToString();
         if (tmpName) tmpName.text = playerRanking.name;
-        if (tmpTime) tmpTime.text = playerRanking.GetTimeFormat_1();
+        if (tmpTime) tmpTime.text = $"#{playerRanking.id}";
         if (tmpScore) tmpScore.text = playerRanking.score.ToString();
     }
 }

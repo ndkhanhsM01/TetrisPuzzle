@@ -51,6 +51,24 @@ namespace MLib
             }
 
         }
+
+        public static void DeleteFile(string path)
+        {
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                    Debug.LogWarning("File cleared: " + path);
+                }
+                else
+                    Debug.LogWarning("Save file failure!");
+            }
+            catch
+            {
+                Debug.LogWarning("Save file failure!");
+            }
+        }
     }
 
 }
