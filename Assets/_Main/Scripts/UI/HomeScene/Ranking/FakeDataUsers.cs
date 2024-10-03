@@ -10,11 +10,6 @@ public class FakeDataUsers: ScriptableObject
     [SerializeField] private UserRanking[] datas;
 
     public UserRanking[] Datas => datas;
-    void OnEnable()
-    {
-        // Ensure that changes made in Play Mode are not saved
-        this.hideFlags = HideFlags.DontSave;
-    }
     public void Set(int index, UserRanking data)
     {
         datas[index] = data;
