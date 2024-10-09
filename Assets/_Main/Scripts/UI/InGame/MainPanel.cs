@@ -30,8 +30,12 @@ public class MainPanel : MPanel
 
     public void OnClick_Pause()
     {
-        GamePlayController.Instance.PauseGame();
+        //GamePlayController.Instance.PauseGame();
         MUIManager.Instance.ShowPanel<PausePanel>();
+    }
+
+    public void OnClick_Help(){
+        MUIManager.Instance.ShowPanel<PanelHelp>();
     }
 
     public void OnClick_SwitchRotate()
