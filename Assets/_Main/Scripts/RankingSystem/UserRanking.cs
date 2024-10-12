@@ -1,15 +1,16 @@
 
 
+using Newtonsoft.Json;
 using System;
 
 [System.Serializable]
 public class UserRanking
 {
-    public int id;
+    [JsonProperty("seqID")]     public int id;
     //public int index;
-    public string name;
-    public double timestamp;
-    public int score;
+    [JsonProperty("name")]      public string name;
+    [JsonProperty("timeStamp")] public double timestamp;
+    [JsonProperty("score")]     public int score;
 
     public static UserRanking CreateNew(string name, int score, int id, double timestamp = -1)
     {

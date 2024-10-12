@@ -22,6 +22,7 @@ public class PanelRanking : MPanel
     private UserRanking playerRanking;
     private List<UserRanking> datasUser;
 
+    private bool isLoaded = false;
     private void OnEnable()
     {
         DataManager.OnLoadLocalSuccess += SetupData;
@@ -35,51 +36,43 @@ public class PanelRanking : MPanel
     public override void Show(Action onFinish)
     {
         base.Show(onFinish);
-        SetupUI(datasUser);
+        Reload();
     }
 
     public void Reload()
     {
+        if (!isLoaded)
+        {
+            foreach (UserScoreItem item in scoreItems_Top3) item.SetActive(false);
+            foreach (UserScoreItem item in scoreItems_Top7) item.SetActive(false);
+            myScoreItem.SetActive(false);
+        }
+
         SetupData(DataManager.Instance.LocalData);
-        SetupUI(datasUser);
-    }
-    public void SetupUI(List<UserRanking> datasUser)
-    {
-        this.datasUser = datasUser;
-
-        myScoreItem.Setup(indexPlayer, playerRanking);
-
-        SetupTop3(datasUser.GetRange(0, 3));
-        SetupTop7(datasUser.GetRange(3, 7));
-    }
-
-    private void SetupTop3(List<UserRanking> top3)
-    {
-        for(int i=0; i<top3.Count; i++)
-        {
-            scoreItems_Top3[i].Setup(i, top3[i]);
-        }
-    }
-
-    private void SetupTop7(List<UserRanking> top7)
-    {
-        for(int i=0; i< scoreItems_Top7.Length; i++)
-        {
-            var item = scoreItems_Top7[i];
-            bool needShow = i < top7.Count;
-
-            item.SetActive(needShow);
-
-            if(needShow)
-                item.Setup(3 + i, top7[i]);
-        }
     }
 
     public void SetupData(LocalData localData)
     {
-        //var localData = DataManager.Instance.LocalData;
-        playerRanking = UserRanking.CreateNew(localData.userName, localData.highScore, localData.userID);
+        GlobalDataManager.Instance.HttpCaller.Get_GetRankingResult(localData.userID, onSuccess: OnLoadDataSuccess);
+    }
 
+    private void OnLoadDataSuccess(UserRanking_Respone res)
+    {
+        var localData = DataManager.Instance.LocalData;
+        playerRanking = UserRanking.CreateNew(localData.userName, localData.highScore, localData.userID);
+        indexPlayer = res.Ranking;
+
+        datasUser = new();
+        //datasUser.Add(playerRanking);
+        datasUser.AddRange(res.Top10);
+        datasUser = datasUser.OrderByDescending(user => user.score).ToList();
+
+        isLoaded = true;
+        UpdateUI();
+    }
+
+    private void SetUpFakeData(UserRanking playerRanking)
+    {
         datasUser = new();
         datasUser.AddRange(fakeDataUsers.Datas);
         datasUser.Add(playerRanking);
@@ -95,4 +88,61 @@ public class PanelRanking : MPanel
             indexPlayer = Random.Range(20, 40);
         }
     }
+
+    #region Set up UI
+    private void UpdateUI()
+    {
+        myScoreItem.Setup(indexPlayer, playerRanking);
+        myScoreItem.SetActive(true);
+
+        if(datasUser.Count > 0)
+        {
+            List<UserRanking> list = new List<UserRanking>();
+            for (int i = 0; i < 3; i++)
+            {
+                list.Add(datasUser[i]);
+            }
+            Debug.Log(list.Count);
+            SetupTop3(list);
+        }
+
+        if(datasUser.Count > 3)
+        {
+            List<UserRanking> list = new List<UserRanking>();
+            for(int i=3; i<datasUser.Count; i++)
+            {
+                list.Add(datasUser[i]);
+            }
+            SetupTop7(list);
+        }
+    }
+
+    private void SetupTop3(List<UserRanking> top3)
+    {
+        for (int i = 0; i < scoreItems_Top3.Length; i++)
+        {
+            var item = scoreItems_Top3[i];
+            bool needShow = i < top3.Count;
+            item.SetActive(needShow);
+            if (needShow)
+            {
+                item.Setup(i, top3[i]);
+            }
+        }
+    }
+
+    private void SetupTop7(List<UserRanking> top7)
+    {
+        for (int i = 0; i < scoreItems_Top7.Length; i++)
+        {
+            var item = scoreItems_Top7[i];
+            bool needShow = i < top7.Count;
+
+            item.SetActive(needShow);
+
+            if (needShow)
+                item.Setup(3 + i, top7[i]);
+        }
+    }
+    #endregion
 }

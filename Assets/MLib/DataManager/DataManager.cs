@@ -51,6 +51,8 @@ namespace MLib
             if(LocalData.highScore < score)
             {
                 LocalData.highScore = score;
+
+                GlobalDataManager.Instance.HttpCaller.Post_UpdateScore(LocalData.userID, LocalData.highScore);
                 return true;
             }
             else

@@ -39,6 +39,7 @@ public class HttpCaller: MonoBehaviour
                     var json = await respone.Content.ReadAsStringAsync();
 
                     T result = JsonConvert.DeserializeObject<T>(json);
+                    onSuccess?.Invoke(result);
                     Debug.Log($"Success: {api} \n{json}");
                     return result;
                 }

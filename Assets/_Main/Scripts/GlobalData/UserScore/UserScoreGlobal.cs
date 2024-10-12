@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class UserRanking_Respone
 {
     [JsonProperty("ranking")] public int Ranking;
-    [JsonProperty("top10")] public List<UserRanking_Respone> Top10;
+    [JsonProperty("top10")] public List<UserRanking> Top10;
 }
 
 [System.Serializable]
@@ -42,12 +42,6 @@ public class UserScoreGlobal : GlobalData<User_Respone>
         void OnSuccess(User_Respone res)
         {
             DataManager.Instance.LocalData.userID = (int) res.SeqID;
-
-            PanelRanking panelRanking = MUIManager.Instance.GetPanel<PanelRanking>();
-            if (panelRanking)
-            {
-                panelRanking.Reload();
-            }
         }
     }
 
