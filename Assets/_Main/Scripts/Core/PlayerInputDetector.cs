@@ -46,27 +46,27 @@ public class PlayerInputDetector: MonoBehaviour
     #region Debug events
     private void DetectHoldFallingFast(bool obj)
     {
-        Debug.Log("Falling: " + obj.ToString());
+        //Debug.Log("Falling: " + obj.ToString());
     }
 
     private void RotateShape()
     {
-        Debug.Log("Rotate");
+        //Debug.Log("Rotate");
     }
 
     private void DropImmidiate()
     {
-        Debug.Log("Drop");
+        //Debug.Log("Drop");
     }
 
     private void MoveLeft()
     {
-        Debug.Log("Move Left");
+        //Debug.Log("Move Left");
     }
 
     private void MoveRight()
     {
-        Debug.Log("Move Right");
+        //Debug.Log("Move Right");
     }
     #endregion
 

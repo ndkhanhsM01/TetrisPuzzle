@@ -21,11 +21,11 @@ public class MainPanel : MPanel
     }
     private void OnSceneLoaded()
     {
-        ScoreSystem.Instance.OnScoreChanged += OnScoreChanged;
+        ScoreSystem.OnScoreChanged += OnScoreChanged;
     }
     private void OnDisable()
     {
-        ScoreSystem.Instance.OnScoreChanged -= OnScoreChanged;
+        ScoreSystem.OnScoreChanged -= OnScoreChanged;
     }
 
     public void OnClick_Pause()

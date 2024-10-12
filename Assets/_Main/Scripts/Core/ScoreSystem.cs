@@ -14,8 +14,8 @@ public class ScoreSystem: MSingleton<ScoreSystem>
     private int comboCount = 0;
     private bool inCombo = false;
 
-    public Action<int, int> OnScoreChanged;
-    public Action<int, int> OnCoinChanged;
+    public static Action<int, int> OnScoreChanged;
+    public static Action<int, int> OnCoinChanged;
 
     public bool InCombo => inCombo;
     public int CurrentScore => score;

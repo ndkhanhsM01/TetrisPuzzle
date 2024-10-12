@@ -34,10 +34,12 @@ public class GamePlayController : MSingleton<GamePlayController>
     public bool IsEndGame { get; private set; } = false;
     public Board Board => board;
 
+    public static Action<int> OnLevelUp;
     public Action<EndGameStatus> OnGameEnd;
     public Action OnPauseGame;
     public Action OnUnpauseGame;
 
+    #region Unity methods
     private void Start()
     {
         fallingInterval = normalFallingInterval;
@@ -84,6 +86,8 @@ public class GamePlayController : MSingleton<GamePlayController>
         }
     }
 
+    #endregion
+
 #if UNITY_EDITOR
     [MButton]
     private void CheatGameOver()
@@ -102,6 +106,8 @@ public class GamePlayController : MSingleton<GamePlayController>
             activeShape = spawner.GetNextShape();
         }
     }
+
+    #region public methods
     public void PauseGame()
     {
         OnPauseGame?.Invoke();
@@ -113,6 +119,14 @@ public class GamePlayController : MSingleton<GamePlayController>
         OnUnpauseGame?.Invoke();
         IsGamePause = false;
     }
+
+    public void IncFallingSpeed(float percent)
+    {
+        percent = Mathf.Clamp01(percent);
+        normalFallingInterval -= normalFallingInterval * percent;   // the lower falling interval, the faster speed drop 
+        fallingInterval = normalFallingInterval;
+    }
+    #endregion
 
     #region Handle active shape
     private async void AutoFallActiveShape()
