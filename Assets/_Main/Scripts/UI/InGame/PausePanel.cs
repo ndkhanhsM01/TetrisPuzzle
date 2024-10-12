@@ -6,6 +6,16 @@ using UnityEngine;
 
 public class PausePanel : MPanel
 {
+    private void OnApplicationFocus(bool focus)
+    {
+#if !UNITY_EDITOR
+        if (!focus)
+        {
+            this.Show();
+        }   
+#endif
+    }
+
     public override void Show(Action onFinish)
     {
         base.Show(onFinish);
