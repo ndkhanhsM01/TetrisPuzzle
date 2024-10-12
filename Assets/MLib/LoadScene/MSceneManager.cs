@@ -68,6 +68,7 @@ namespace MLib
                 frameCount--;
                 yield return null;
             }
+            
             OnSceneReady?.Invoke();
             EventsCenter.OnSceneLoaded?.Invoke();
 

@@ -14,6 +14,8 @@ namespace MLib
 
         [HideInInspector] public LocalData LocalData;
 
+        public static Action<LocalData> OnLoadLocalSuccess;
+        public bool IsLoadSuccess { get; private set; }
         public int Coin
         {
             get
@@ -74,12 +76,19 @@ namespace MLib
             Save();
         }
 
-        public void Load()
+        public async void Load()
         {
+            IsLoadSuccess = false;
             // load file
             string path = Application.persistentDataPath + "/" + fileName;
-            LocalData = MHelper.LoadDataFromFile<LocalData>(path, true);
+            LocalData = await MHelper.LoadDataFromFile<LocalData>(path, true);
             if( LocalData == null ) LocalData = new LocalData();
+            IsLoadSuccess = true;
+
+            if (Application.isPlaying)
+            {
+                OnLoadLocalSuccess?.Invoke(LocalData);
+            }
         }
 
         public void Save()

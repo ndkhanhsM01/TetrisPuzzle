@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,6 +7,8 @@ namespace MLib
     [System.Serializable]
     public class LocalData
     {
+        public static Action<LocalData> OnInitData;
+
         // Information
         public string userName;
         public int userID;
@@ -24,7 +27,7 @@ namespace MLib
         public LocalData()
         {
             userName = GameConstraint.DefaultNameUser;
-            userID = (int) TimeHelper.UnixTimeNow;
+            userID = -1;
 
             isPlayMusic = true;
             isPlaySoundFX = true;

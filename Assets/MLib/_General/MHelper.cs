@@ -1,12 +1,13 @@
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace MLib
 {
     public static class MHelper
     {
-        public static T LoadDataFromFile<T>(string path, bool createFileDefault = false)
+        public static async Task<T> LoadDataFromFile<T>(string path, bool createFileDefault = false)
         {
             T result = default;
 
@@ -14,7 +15,7 @@ namespace MLib
             {
                 if (File.Exists(path))
                 {
-                    string content = File.ReadAllText(path);
+                    string content = await File.ReadAllTextAsync(path);
                     result = JsonConvert.DeserializeObject<T>(content);
                     Debug.LogWarning($"Read data <{typeof(T)}> from file: {path}");
                 }
@@ -36,13 +37,13 @@ namespace MLib
             return result;
         }
 
-        public static void SaveDataIntoFile<T>(string path, T data)
+        public static async void SaveDataIntoFile<T>(string path, T data)
         {
             try
             {
                 string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
 
-                File.WriteAllText(path, jsonData);
+                await File.WriteAllTextAsync(path, jsonData);
                 Debug.LogWarning($"Game data <{typeof(T)}> saved to: " + path);
             }
             catch

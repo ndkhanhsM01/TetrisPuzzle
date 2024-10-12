@@ -24,26 +24,26 @@ public class PanelRanking : MPanel
 
     private void OnEnable()
     {
-        EventsCenter.OnSceneLoaded += SetupData;
+        DataManager.OnLoadLocalSuccess += SetupData;
     }
     private void OnDisable()
     {
-        EventsCenter.OnSceneLoaded -= SetupData;
+        DataManager.OnLoadLocalSuccess -= SetupData;
         
     }
 
     public override void Show(Action onFinish)
     {
         base.Show(onFinish);
-        FakeSetup();
+        SetupUI(datasUser);
     }
 
-    public void FakeSetup()
+    public void Reload()
     {
-        Setup(datasUser);
+        SetupData(DataManager.Instance.LocalData);
+        SetupUI(datasUser);
     }
-
-    public void Setup(List<UserRanking> datasUser)
+    public void SetupUI(List<UserRanking> datasUser)
     {
         this.datasUser = datasUser;
 
@@ -75,9 +75,9 @@ public class PanelRanking : MPanel
         }
     }
 
-    private void SetupData()
+    public void SetupData(LocalData localData)
     {
-        var localData = DataManager.Instance.LocalData;
+        //var localData = DataManager.Instance.LocalData;
         playerRanking = UserRanking.CreateNew(localData.userName, localData.highScore, localData.userID);
 
         datasUser = new();

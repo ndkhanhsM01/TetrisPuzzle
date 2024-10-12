@@ -32,6 +32,8 @@ public class PlayerScoreItem: MonoBehaviour
 
     public void Setup(int index, UserRanking playerRanking)
     {
+        if (playerRanking == null) return;
+
         this.playerRanking = playerRanking;
         if (tmpIndex) tmpIndex.text = (index + 1).ToString();
         if (tmpName) tmpName.text = playerRanking.name;

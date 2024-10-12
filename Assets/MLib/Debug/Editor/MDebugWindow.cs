@@ -129,9 +129,7 @@ namespace MLib
                 }
                 if (GUILayout.Button("Reload data from disk"))
                 {
-                    localData = MHelper.LoadDataFromFile<LocalData>(pathFileData);
-
-                    serializedData = JsonConvert.SerializeObject(localData, Formatting.Indented);
+                    ReadDataFromDisk();
                 }
                 if (GUILayout.Button("Clear all data"))
                 {
@@ -144,6 +142,13 @@ namespace MLib
             }
 
             EditorGUILayout.EndFoldoutHeaderGroup();
+        }
+
+        private async void ReadDataFromDisk()
+        {
+            localData = await MHelper.LoadDataFromFile<LocalData>(pathFileData);
+
+            serializedData = JsonConvert.SerializeObject(localData, Formatting.Indented);
         }
 
         private void SetEditorPingResorucesFolder()
