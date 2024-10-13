@@ -77,7 +77,8 @@ public class PanelRanking : MPanel
         datasUser = new();
         //datasUser.Add(playerRanking);
         datasUser.AddRange(res.Top10);
-        datasUser = datasUser.OrderByDescending(user => user.score).ToList();
+        datasUser = datasUser.OrderByDescending(user => user.score)
+                            .ThenByDescending(user => user.id).ToList();
 
         isLoaded = true;
         UpdateUI();
