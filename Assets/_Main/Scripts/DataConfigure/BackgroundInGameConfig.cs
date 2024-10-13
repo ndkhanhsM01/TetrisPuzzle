@@ -10,22 +10,22 @@ public class BackgroundInGameConfig: MSingleton<BackgroundInGameConfig>
     private Dictionary<int, bool> saveDatas => DataManager.Instance.ItemsBackground;
     private void OnEnable()
     {
-        EventsCenter.OnSceneLoaded += RegistDatasItem;
+        DataManager.OnLoadLocalSuccess += RegistDatasItem;
     }
 
     private void OnDisable()
     {
-        EventsCenter.OnSceneLoaded -= RegistDatasItem;
+        DataManager.OnLoadLocalSuccess -= RegistDatasItem;
     }
     public SOItemBackground GetByID(int id)
     {
-        return all[id];
+        return all[id >= 0 ? id : 0];
     }
-    public void RegistDatasItem()
+    public void RegistDatasItem(LocalData localData)
     {
         if (saveDatas != null && saveDatas.Count == all.Length) return;
 
-        DataManager.Instance.LocalData.Initialize_ItemsBackground(all);
+        localData.Initialize_ItemsBackground(all);
     }
 #if UNITY_EDITOR
 

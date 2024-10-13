@@ -18,27 +18,31 @@ public class UIToggleAudio: MonoBehaviour
     {
         button = GetComponent<Button>();
     }
-
-    private void Start()
-    {
-        if (!DataManager.Instance) return;
-
-        switch (type)
-        {
-            case AudioType.Music: isActive = DataManager.Instance.LocalData.isPlayMusic; break;
-            case AudioType.SoundFX: isActive = DataManager.Instance.LocalData.isPlaySoundFX; break;
-        }
-
-        UpdateUI();
-    }
     private void OnEnable()
     {
-        button.onClick.AddListener(Click_Toggle);   
+        button.onClick.AddListener(Click_Toggle);
+        DataManager.OnLoadLocalSuccess += OnDataLoaded;
     }
 
     private void OnDisable()
     {
         button.onClick.RemoveListener(Click_Toggle);
+        DataManager.OnLoadLocalSuccess -= OnDataLoaded;
+    }
+
+    private void OnDataLoaded(LocalData localData)
+    {
+        switch (type)
+        {
+            case AudioType.Music: 
+                isActive = localData.isPlayMusic;
+                break;
+            case 
+                AudioType.SoundFX: isActive = localData.isPlaySoundFX;
+                break;
+        }
+
+        UpdateUI();
     }
 
     private void Click_Toggle()

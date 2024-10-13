@@ -10,17 +10,17 @@ public class BGInGameController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsCenter.OnSceneLoaded += LoadBackground;
+        DataManager.OnLoadLocalSuccess += LoadBackground;
     }
 
     private void OnDisable()
     {
-        EventsCenter.OnSceneLoaded -= LoadBackground;
+        DataManager.OnLoadLocalSuccess -= LoadBackground;
     }
 
-    private void LoadBackground()
+    private void LoadBackground(LocalData localData)
     {
-        SOItemBackground data = BackgroundInGameConfig.Instance.GetByID(DataManager.Instance.usingBackground);
+        SOItemBackground data = BackgroundInGameConfig.Instance.GetByID(localData.usingBackground);
         if(data == null)
         {
             imgBG.SetActive(false);

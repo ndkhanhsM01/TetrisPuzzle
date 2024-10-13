@@ -94,7 +94,8 @@ namespace MLib
                 if (!isNewUser) return;
 
                 // create new global user data
-                GlobalDataManager.Instance.HttpCaller.Post_CreateNewUser(LocalData.userName, onSuccess: OnSuccess);
+                if(GlobalDataManager.Instance)
+                    GlobalDataManager.Instance.HttpCaller.Post_CreateNewUser(LocalData.userName, onSuccess: OnSuccess);
 
                 void OnSuccess(User_Respone res)
                 {

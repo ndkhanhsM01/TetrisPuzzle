@@ -22,6 +22,20 @@ namespace MLib
             DictAudio = configure.GetDictAudio();
         }
 
+        private void OnEnable()
+        {
+            DataManager.OnLoadLocalSuccess += OnLoadDataSuccess;
+        }
+        private void OnDisable()
+        {
+            DataManager.OnLoadLocalSuccess -= OnLoadDataSuccess;
+        }
+        private void OnLoadDataSuccess(LocalData data)
+        {
+            SetVolumeMusic(data.isPlayMusic ? 1 : 0);
+            SetVolumeSFX(data.isPlaySoundFX ? 1 : 0);
+        }
+
 /*        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
