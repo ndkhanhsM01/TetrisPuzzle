@@ -1,4 +1,5 @@
-﻿using MLib;
+﻿using Cysharp.Threading.Tasks;
+using MLib;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -31,9 +32,11 @@ public class UserScoreGlobal : GlobalData<User_Respone>
         DataManager.OnLoadLocalSuccess -= OnLoadLocalSuccess;
     }
 
-    private void OnLoadLocalSuccess(LocalData data)
+    private async void OnLoadLocalSuccess(LocalData data)
     {
-
+        await UniTask.WaitUntil(() => GlobalDataManager.Instance);
+        GlobalDataManager.Instance.HttpCaller.Post_UpdateScore(data.userID, data.highScore);
+        GlobalDataManager.Instance.HttpCaller.Post_UpdateName(data.userID, data.userName);
     }
 
     private void UpdateNameGlobal(string newName)
