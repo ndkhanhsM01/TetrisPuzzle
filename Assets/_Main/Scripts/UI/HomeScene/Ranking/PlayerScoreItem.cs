@@ -35,7 +35,14 @@ public class PlayerScoreItem: MonoBehaviour
         if (playerRanking == null) return;
 
         this.playerRanking = playerRanking;
-        if (tmpIndex) tmpIndex.text = (index + 1).ToString();
+        if (tmpIndex)
+        {
+            string indexDisplay = playerRanking.score > 0
+                                ? (index + 1).ToString() 
+                                : "??"; 
+            tmpIndex.text = indexDisplay;
+        }
+
         if (tmpName) tmpName.text = playerRanking.name;
         if (tmpTime) tmpTime.text = $"#{playerRanking.id}";
         if (tmpScore) tmpScore.text = playerRanking.score.ToString();

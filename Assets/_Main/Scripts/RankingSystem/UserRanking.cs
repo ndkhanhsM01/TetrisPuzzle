@@ -1,5 +1,6 @@
 
 
+using MLib;
 using Newtonsoft.Json;
 using System;
 
@@ -29,6 +30,17 @@ public class UserRanking
         };
         
         return newData;
+    }
+
+    public bool IsUser
+    {
+        get
+        {
+            if (DataManager.Instance)
+                return id == DataManager.Instance.LocalData.userID;
+
+            return false;
+        }
     }
 
     public string GetTimeFormat_1()
