@@ -10,6 +10,7 @@ namespace MLib
         protected Canvas canvas;
         protected CanvasGroup canvasGroup;
 
+        public bool IsShowing => canvas.enabled;
         protected virtual void Awake()
         {
             canvas = GetComponent<Canvas>();

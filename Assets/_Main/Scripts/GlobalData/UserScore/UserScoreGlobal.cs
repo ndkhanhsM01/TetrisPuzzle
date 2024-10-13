@@ -33,16 +33,7 @@ public class UserScoreGlobal : GlobalData<User_Respone>
 
     private void OnLoadLocalSuccess(LocalData data)
     {
-        bool isNewUser = data.userID < 0;
-        if (!isNewUser) return;
 
-        // create new global user data
-        manager.HttpCaller.Post_CreateNewUser(data.userName, onSuccess: OnSuccess);
-
-        void OnSuccess(User_Respone res)
-        {
-            DataManager.Instance.LocalData.userID = (int) res.SeqID;
-        }
     }
 
     private void UpdateNameGlobal(string newName)

@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class PanelRanking : MPanel
 {
     [SerializeField] private FakeDataUsers fakeDataUsers;
+    [SerializeField] private GameObject uiTryConnect;
 
     [Header("My score")]
     [SerializeField] private PlayerScoreItem myScoreItem;
@@ -37,6 +38,8 @@ public class PanelRanking : MPanel
     {
         base.Show(onFinish);
         Reload();
+
+        if(!isLoaded) uiTryConnect.SetActive(true);
     }
 
     public void Reload()
@@ -53,11 +56,20 @@ public class PanelRanking : MPanel
 
     public void SetupData(LocalData localData)
     {
+        if (!GlobalDataManager.Instance) return;
+
         GlobalDataManager.Instance.HttpCaller.Get_GetRankingResult(localData.userID, onSuccess: OnLoadDataSuccess);
+    }
+
+    private void OnLoadFaild()
+    {
+        uiTryConnect.SetActive(true);
     }
 
     private void OnLoadDataSuccess(UserRanking_Respone res)
     {
+        uiTryConnect.SetActive(false);
+
         var localData = DataManager.Instance.LocalData;
         playerRanking = UserRanking.CreateNew(localData.userName, localData.highScore, localData.userID);
         indexPlayer = res.Ranking;

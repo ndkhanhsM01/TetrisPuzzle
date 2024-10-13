@@ -90,6 +90,16 @@ namespace MLib
             if (Application.isPlaying)
             {
                 OnLoadLocalSuccess?.Invoke(LocalData);
+                bool isNewUser = LocalData.userID < 0;
+                if (!isNewUser) return;
+
+                // create new global user data
+                GlobalDataManager.Instance.HttpCaller.Post_CreateNewUser(LocalData.userName, onSuccess: OnSuccess);
+
+                void OnSuccess(User_Respone res)
+                {
+                    DataManager.Instance.LocalData.userID = (int)res.SeqID;
+                }
             }
         }
 
