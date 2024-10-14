@@ -58,6 +58,7 @@ public class UserScoreGlobal : GlobalData<User_Respone>
 
     public void UpdateData(LocalData data)
     {
+        if(data == null || manager == null) return;
         manager.HttpCaller.Post_UpdateScore(data.userID, data.highScore);
         manager.HttpCaller.Post_UpdateName(data.userID, data.userName);
     }
