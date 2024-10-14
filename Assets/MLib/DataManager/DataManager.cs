@@ -87,27 +87,43 @@ namespace MLib
             if( LocalData == null ) LocalData = new LocalData();
             IsLoadSuccess = true;
 
-            if (Application.isPlaying)
-            {
-                OnLoadLocalSuccess?.Invoke(LocalData);
-                bool isNewUser = LocalData.userID < 0;
-                if (!isNewUser) return;
+            OnLoadLocalSuccess?.Invoke(LocalData);
 
-                // create new global user data
-                if(GlobalDataManager.Instance)
-                    GlobalDataManager.Instance.HttpCaller.Post_CreateNewUser(LocalData.userName, onSuccess: OnSuccess);
-
-                void OnSuccess(User_Respone res)
-                {
-                    DataManager.Instance.LocalData.userID = (int)res.SeqID;
-                }
-            }
+            bool isNewUser = LocalData.userID < 0;
+            //Debug.Log("new user: " + isNewUser.ToString());
+            if (isNewUser)
+                RegistNewAccountUser(LocalData.userName);
+            else
+                Debug.LogWarning($"Data user was registered! <{LocalData.userID}>");
         }
 
         public void Save()
         {
             string path = Application.persistentDataPath + "/" + fileName;
             MHelper.SaveDataIntoFile(path, LocalData);
+        }
+
+        private void RegistNewAccountUser(string userName)
+        {
+            int reqCount = 10;
+            if (GlobalDataManager.Instance)
+                Request();
+
+            void OnSuccess(User_Respone res)
+            {
+                DataManager.Instance.LocalData.userID = (int)res.SeqID;
+            }
+
+            void Request()
+            {
+                reqCount--;
+
+                if (reqCount >= 0)
+                {
+                    Debug.Log("Try regist new user");
+                    GlobalDataManager.Instance.HttpCaller.Post_CreateNewUser(userName, onSuccess: OnSuccess, onFailure: Request);
+                }
+            }
         }
     }
 }

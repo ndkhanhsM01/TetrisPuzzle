@@ -23,29 +23,42 @@ public class UserScoreGlobal : GlobalData<User_Respone>
     private void OnEnable()
     {
         EventsCenter.OnUserNameChanged += UpdateNameGlobal;
+        EventsCenter.OnSceneLoaded += OnSceneLoaded;
         DataManager.OnLoadLocalSuccess += OnLoadLocalSuccess;
     }
 
     private void OnDisable()
     {
         EventsCenter.OnUserNameChanged -= UpdateNameGlobal;
+        EventsCenter.OnSceneLoaded -= OnSceneLoaded;
         DataManager.OnLoadLocalSuccess -= OnLoadLocalSuccess;
     }
 
     private async void OnLoadLocalSuccess(LocalData data)
     {
         await UniTask.WaitUntil(() => GlobalDataManager.Instance);
-        GlobalDataManager.Instance.HttpCaller.Post_UpdateScore(data.userID, data.highScore);
-        GlobalDataManager.Instance.HttpCaller.Post_UpdateName(data.userID, data.userName);
+
+        UpdateData(data);
     }
 
     private void UpdateNameGlobal(string newName)
     {
         manager.HttpCaller.Post_UpdateName(DataManager.Instance.LocalData.userID, newName);
     }
+    private void OnSceneLoaded()
+    {
+        if (DataManager.Instance == null || DataManager.Instance.IsLoadSuccess == false) return;
 
+        UpdateData(DataManager.Instance.LocalData);
+    }
     public override void Load()
     {
         
+    }
+
+    public void UpdateData(LocalData data)
+    {
+        manager.HttpCaller.Post_UpdateScore(data.userID, data.highScore);
+        manager.HttpCaller.Post_UpdateName(data.userID, data.userName);
     }
 }
