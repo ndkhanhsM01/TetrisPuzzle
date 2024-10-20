@@ -14,19 +14,19 @@ public class CoinDisplayer : MonoBehaviour
     private Tween tween;
     private void OnEnable()
     {
-        EventsCenter.OnSceneLoaded += OnSceneLoaded;
+        DataManager.OnLoadLocalSuccess+= OnLoadLocalSuccess;
         EventsCenter.OnCoinChanged += OnCoinChanged;
     }
 
     private void OnDisable()
     {
-        EventsCenter.OnSceneLoaded -= OnSceneLoaded;
+        DataManager.OnLoadLocalSuccess -= OnLoadLocalSuccess;
         EventsCenter.OnCoinChanged -= OnCoinChanged;
     }
 
-    private void OnSceneLoaded()
+    private void OnLoadLocalSuccess(LocalData data)
     {
-        OnCoinChanged(DataManager.Instance.Coin);
+        OnCoinChanged(data.coin);
     }
 
     private void OnCoinChanged(int newValue)
