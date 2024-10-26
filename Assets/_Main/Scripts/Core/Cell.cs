@@ -12,10 +12,10 @@ public class Cell : MonoBehaviour
     private void Awake()
     {
         Body = transform;
-        Debug.LogWarning("Spawn new");
+        //Debug.LogWarning("Spawn new");
     }
     private void OnDestroy()
     {
-        Debug.LogWarning("Why you destroy me?");
+        //Debug.LogWarning("Why you destroy me?");
     }
 }

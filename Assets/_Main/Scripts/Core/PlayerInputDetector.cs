@@ -1,28 +1,43 @@
 
 
+using MLib;
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInputDetector: MonoBehaviour
 {
+    #region General input setting
+    [Header("General input setting")]
+    [Min(0f)][SerializeField] private float rotateRate = 0.2f;
+    #endregion
+
+    #region Mobile input setting
+    [Space(20)]
     [Header("Mobile input setting")]
     [SerializeField] private bool testInputMobile = false;
     [SerializeField] private bool debugTouch = true;
     [SerializeField] private float thresholdTouch = 1f;
     [SerializeField] private float tapThreshold = 0.15f;
     [SerializeField] private float dragThresholdHorizontal = 2f;
-    [SerializeField] private float timeThresholdHorizontal = 0.2f;
     [SerializeField] private float dragThreshollVertical = 3f;
     [SerializeField] private float timeThresholdVertical = 0.2f;
     [SerializeField] private float speedTouchForDrop = 10f;
-    private Vector2 lastTouchPosition;
+    private float addPercentSensitivity => DataManager.Instance.LocalData.touchSensitivity;
+
+    [Tooltip("min distance to enable horizontal swipe")]
+    [Min(0f)][SerializeField] private float horizontalStep = 0.2f;
+
+    private Vector2 lastPointInvokeHorizontal;
     private float touchingTime = 0f;
     private bool isFallingFast = false;
+    #endregion
 
-    [Header("Repeat input rate")]
-    [Min(0f)][SerializeField] private float horizontalRate = 0.2f;
-    [Min(0f)][SerializeField] private float rotateRate = 0.2f;
+    #region PC input setting
+    [Space(20)]
+    [Header("PC input setting")]
+    [Min(0f)][SerializeField] private float timeHorizontalRate = 0.15f;
+    #endregion
 
     public Action OnDrop;
     public Action OnMoveRight;
@@ -30,7 +45,7 @@ public class PlayerInputDetector: MonoBehaviour
     public Action<bool> OnDetectFallingFast;
     public Action OnRotate;
 
-    private float timerHorizontal = 0f;
+    private float timerHorizontalPC = 0f;
     private float timerRotate = 0f;
     private GamePlayController gamePlayController => GamePlayController.Instance;
 
@@ -42,6 +57,14 @@ public class PlayerInputDetector: MonoBehaviour
         OnDrop += DropImmidiate;
         OnRotate += RotateShape;
         OnDetectFallingFast += DetectHoldFallingFast;
+    }
+    private void OnDisable()
+    {
+        OnMoveRight -= MoveRight;
+        OnMoveLeft -= MoveLeft;
+        OnDrop -= DropImmidiate;
+        OnRotate -= RotateShape;
+        OnDetectFallingFast -= DetectHoldFallingFast;
     }
     #region Debug events
     private void DetectHoldFallingFast(bool obj)
@@ -76,10 +99,10 @@ public class PlayerInputDetector: MonoBehaviour
 
         if (IsActive)
         {
-            timerHorizontal -= Time.deltaTime;
             timerRotate -= Time.deltaTime;
 
 #if UNITY_EDITOR
+            timerHorizontalPC -= Time.deltaTime;
             if (testInputMobile)
             {
                 HandleInputOnMobile();
@@ -100,19 +123,19 @@ public class PlayerInputDetector: MonoBehaviour
             OnDetectFallingFast?.Invoke(false);
 
 
-        if (timerHorizontal <= 0f && (Input.GetKey(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
+        if (timerHorizontalPC <= 0f && (Input.GetKey(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
         {
-            timerHorizontal = horizontalRate;
+            timerHorizontalPC = timeHorizontalRate;
             OnMoveRight?.Invoke();
         }
-        else if (timerHorizontal <= 0f && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.LeftArrow)))
+        else if (timerHorizontalPC <= 0f && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.LeftArrow)))
         {
-            timerHorizontal = horizontalRate;
+            timerHorizontalPC = timeHorizontalRate;
             OnMoveLeft?.Invoke();
         }
         else if (timerRotate <= 0f && (Input.GetKey(KeyCode.Space) || Input.GetKeyDown(KeyCode.Space)))
         {
-            timerRotate = horizontalRate;
+            timerRotate = rotateRate;
             OnRotate?.Invoke();
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -134,26 +157,33 @@ public class PlayerInputDetector: MonoBehaviour
             return;
         }
 
+        // get touch
         Touch newTouch = Input.GetTouch(0);
-
         Vector2 step = newTouch.deltaPosition;
-        if(debugTouch) Debug.Log("deltaPosition: " + step);
-        //Debug.Log(newTouch.phase);
-        if (newTouch.phase == TouchPhase.Began) touchingTime = 0f;
+        step.x += step.x * addPercentSensitivity;
+        step.y += step.y * addPercentSensitivity;
 
+        // handle on touch began
+        if (newTouch.phase == TouchPhase.Began)
+        {
+            lastPointInvokeHorizontal = newTouch.position;
+            touchingTime = 0f;
+        }
+
+        // handle touch to invoke input
         SwipeAxis swipeAxis = DetectSwipeAxis(step);
         touchingTime += Time.deltaTime;
         if (swipeAxis == SwipeAxis.None)
         {
-            if (newTouch.phase == TouchPhase.Ended)
+/*            if (newTouch.phase == TouchPhase.Ended)
             {
                 Debug.Log(touchingTime);
                 Debug.Log(newTouch.deltaPosition);
-            }
+            }*/
 
             if (touchingTime < tapThreshold && newTouch.phase == TouchPhase.Ended && newTouch.deltaPosition == Vector2.zero)
             {
-                Debug.Log("Try rotate");
+                //Debug.Log("Try rotate");
                 timerRotate = rotateRate;
                 OnRotate?.Invoke();
             }
@@ -161,21 +191,23 @@ public class PlayerInputDetector: MonoBehaviour
         else if(swipeAxis == SwipeAxis.Horizontal)
         {
             StopFallingFast();
-            if (step.x > 0 && timerHorizontal <= 0f)
+            float offsetLastHorizontal = Mathf.Abs(newTouch.position.x - lastPointInvokeHorizontal.x);
+            offsetLastHorizontal += offsetLastHorizontal * addPercentSensitivity;
+            if (step.x > 0 && offsetLastHorizontal >= horizontalStep)
             {
-                timerHorizontal = horizontalRate;
+                lastPointInvokeHorizontal = newTouch.position;
                 OnMoveRight?.Invoke();
             }
-            else if (step.x < 0 && timerHorizontal <= 0f)
+            else if (step.x < 0 && offsetLastHorizontal >= horizontalStep)
             {
-                timerHorizontal = horizontalRate;
+                lastPointInvokeHorizontal = newTouch.position;
                 OnMoveLeft?.Invoke();
             }
         }
         else if(swipeAxis == SwipeAxis.Vertical && touchingTime > timeThresholdVertical)
         {
             float speedTouch = step.magnitude / newTouch.deltaTime;
-            if(debugTouch) Debug.Log("Speed touch: " + speedTouch);
+            //if(debugTouch) Debug.Log("Speed touch: " + speedTouch);
             if (step.y < 0f && speedTouch > speedTouchForDrop && !isFallingFast)
             {
                 OnDrop?.Invoke();
@@ -187,7 +219,8 @@ public class PlayerInputDetector: MonoBehaviour
             }
         }
 
-        if(newTouch.phase == TouchPhase.Ended)
+        // handle on touch end
+        if (newTouch.phase == TouchPhase.Ended)
         {
             if (isFallingFast)
             {

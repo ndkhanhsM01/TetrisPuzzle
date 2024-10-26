@@ -84,17 +84,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6435b560ec52c254b8b80a2a4cb668d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testInputMobile: 0
+  gameConfigInGameSO: {fileID: 11400000, guid: 487b40602831248498c3087ce388b4c5, type: 2}
+  rotateRate: 0.15
+  testInputMobile: 1
   debugTouch: 0
   thresholdTouch: 1
   tapThreshold: 0.15
   dragThresholdHorizontal: 3
-  timeThresholdHorizontal: 0.2
   dragThreshollVertical: 3
   timeThresholdVertical: 0.1
   speedTouchForDrop: 1500
-  horizontalRate: 0.15
-  rotateRate: 0.15
+  horizontalStep: 70
+  timeHorizontalRate: 0.15
 --- !u!114 &4129284319381344465
 MonoBehaviour:
   m_ObjectHideFlags: 0

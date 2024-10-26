@@ -16,6 +16,7 @@ namespace MLib
         // Setting
         public bool isPlayMusic = true;
         public bool isPlaySoundFX = true;
+        public float touchSensitivity = 0f;
 
         // Storage
         public int highScore;
@@ -31,6 +32,7 @@ namespace MLib
 
             isPlayMusic = true;
             isPlaySoundFX = true;
+            touchSensitivity = 0f;
 
             itemsBackground = new Dictionary<int, bool>();
             usingBackground = -1;

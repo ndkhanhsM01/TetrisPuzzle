@@ -134,6 +134,7 @@ MonoBehaviour:
   setting:
     introDuration: 0
     outroDuration: 0
+  content: {fileID: 1502951517267358351}
 --- !u!223 &1462672168961454686
 Canvas:
   m_ObjectHideFlags: 0
