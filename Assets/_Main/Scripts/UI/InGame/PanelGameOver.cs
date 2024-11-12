@@ -9,7 +9,13 @@ public class PanelGameOver : MPanel
     [SerializeField] private TMP_Text tmpScore;
     [SerializeField] private TMP_Text tmpCoin;
 
+    [SerializeField] private GameObject goContent;
     [SerializeField] private GameObject goNewHighScore;
+
+    private void Start()
+    {
+        goContent.SetActive(false);
+    }
 
     private void OnEnable()
     {
@@ -24,7 +30,7 @@ public class PanelGameOver : MPanel
     public override void Show(Action onFinish)
     {
         base.Show(onFinish);
-
+        goContent.SetActive(true);
         MAudioManager.Instance.SetVolumeMusic(0f);
     }
 

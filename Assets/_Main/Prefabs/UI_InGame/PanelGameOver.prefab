@@ -1276,11 +1276,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb79a6a8934dda4d9bf6a0a4454a90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableOnAwake: 0
+  disableOnHide: 0
   setting:
     introDuration: 0
     outroDuration: 0
   tmpScore: {fileID: 1827176846816623795}
   tmpCoin: {fileID: 1813295035436929057}
+  goContent: {fileID: 8826155733814930004}
   goNewHighScore: {fileID: 7945682594002881198}
 --- !u!223 &1204949918263159140
 Canvas:
@@ -2022,6 +2025,7 @@ GameObject:
   - component: {fileID: 2779517807972633892}
   - component: {fileID: 6600900375549593734}
   - component: {fileID: 1326151103254625763}
+  - component: {fileID: 256857691982336956}
   m_Layer: 5
   m_Name: Main
   m_TagString: Untagged
@@ -2092,3 +2096,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &256857691982336956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8826155733814930004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbcdc9a0843f08849a3f7aeebbcd8b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  duration: 0.25
+  ease: 27
+  startValue: {x: 0, y: 0, z: 0}
+  endValue: {x: 1, y: 1, z: 1}

@@ -7,6 +7,9 @@ namespace MLib
 {
     public abstract class MPanel : MonoBehaviour
     {
+        [SerializeField] private bool disableOnAwake = true;
+        [SerializeField] private bool disableOnHide = true;
+
         protected Canvas canvas;
         protected CanvasGroup canvasGroup;
 
@@ -15,6 +18,9 @@ namespace MLib
         {
             canvas = GetComponent<Canvas>();
             canvasGroup = GetComponent<CanvasGroup>();
+
+            if (disableOnAwake)
+                gameObject.SetActive(false);
         }
 
         [System.Serializable]
@@ -37,6 +43,7 @@ namespace MLib
 
         public virtual void Show(Action onFinish)
         {
+            gameObject.SetActive(true);
             if (!canvas)
             {
                 Debug.LogError("My panel has to have canvas, right?");
@@ -57,6 +64,9 @@ namespace MLib
             {
                 onFinish?.Invoke();
                 canvas.enabled = false;
+
+                if(disableOnHide) 
+                    gameObject.SetActive(false);
             });
         }
     }

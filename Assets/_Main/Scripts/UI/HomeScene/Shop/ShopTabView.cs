@@ -3,9 +3,11 @@
 using MLib;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class ShopTapView: MonoBehaviour
 {
+    [SerializeField] protected ScrollRect scroll;
     [SerializeField] protected Transform content;
     [SerializeField] protected ShopItem itemPrefab;
 
@@ -25,6 +27,7 @@ public abstract class ShopTapView: MonoBehaviour
     }
     public void ShowContent()
     {
+        scroll.content.localPosition = Vector3.zero;
         MakeSureEnoughItems();
 
         for (int i = 0; i < all_Items.Count; i++)

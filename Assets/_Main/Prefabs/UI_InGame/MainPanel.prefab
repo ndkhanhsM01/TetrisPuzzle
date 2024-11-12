@@ -669,6 +669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362a992b2c7d8f94f9acfb67a3da506e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableOnAwake: 0
+  disableOnHide: 0
   setting:
     introDuration: 0
     outroDuration: 0.5

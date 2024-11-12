@@ -20,6 +20,8 @@ public class UITouchSensitivitySetting : MonoBehaviour
         DataManager.OnLoadLocalSuccess += OnDataLoaded;
         EventsCenter.OnSceneLoaded += OnSceneLoaded;
         slider.onValueChanged.AddListener(OnValueSliderChanged);
+
+        LoadCurValue();
     }
 
     private void OnDisable()
@@ -37,15 +39,20 @@ public class UITouchSensitivitySetting : MonoBehaviour
 
     private void OnSceneLoaded()
     {
-        if (DataManager.Instance.LocalData == null) return;
-
-        saveData = DataManager.Instance.LocalData;
-        slider.value = saveData.touchSensitivity;
+        LoadCurValue();
     }
 
     private void OnValueSliderChanged(float value)
     {
         if (saveData == null) return;
         saveData.touchSensitivity = value;
+    }
+
+    private void LoadCurValue()
+    {
+        if (DataManager.Instance == null || DataManager.Instance.LocalData == null) return;
+
+        saveData = DataManager.Instance.LocalData;
+        slider.value = saveData.touchSensitivity;
     }
 }

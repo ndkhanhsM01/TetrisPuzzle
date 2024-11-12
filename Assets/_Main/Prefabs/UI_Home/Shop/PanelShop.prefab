@@ -354,6 +354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e088bf6fe992414a8d57881626eba9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableOnAwake: 1
+  disableOnHide: 1
   setting:
     introDuration: 0
     outroDuration: 0
@@ -484,6 +486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9eda2c044797cf42b067d80e8d72d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scroll: {fileID: 3907292300397884703}
   content: {fileID: 1531105977983066362}
   itemPrefab: {fileID: 1770009902528034549, guid: fbc7b1ef02c851f4093c31ac30217ce7, type: 3}
   allDatas:

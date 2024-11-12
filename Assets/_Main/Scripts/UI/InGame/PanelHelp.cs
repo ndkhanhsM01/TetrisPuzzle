@@ -5,19 +5,17 @@ using MLib;
 using System;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PanelHelp : MPanel
 {
-    [SerializeField] private RectTransform content;
+    [SerializeField] private ScrollRect scroll;
     public override void Show(Action onFinish)
     {
         base.Show(onFinish);
         GamePlayController.Instance.PauseGame();
 
-        DOVirtual.DelayedCall(0.05f, () =>
-        {
-            content.localPosition = Vector3.zero;
-        });
+        scroll.content.localPosition = Vector3.zero;
     }
     public override void Hide(Action onFinish)
     {

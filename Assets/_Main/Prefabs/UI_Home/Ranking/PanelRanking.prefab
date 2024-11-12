@@ -443,6 +443,8 @@ GameObject:
   - component: {fileID: 202473096336799281}
   - component: {fileID: 4211725435597650403}
   - component: {fileID: 7552792909156647415}
+  - component: {fileID: 5553045880589817246}
+  - component: {fileID: 8875242849239835982}
   m_Layer: 5
   m_Name: PanelRanking
   m_TagString: Untagged
@@ -488,6 +490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a772a7b70917b7747a57cede850da8a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableOnAwake: 1
+  disableOnHide: 1
   setting:
     introDuration: 0
     outroDuration: 0
@@ -569,6 +573,36 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &5553045880589817246
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171160052091440223}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &8875242849239835982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171160052091440223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23db1a97cc5d2c647ae2e1c086ba5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  duration: 0.2
+  ease: 1
+  startValue: 0
+  endValue: 1
+  group: {fileID: 5553045880589817246}
 --- !u!1 &6890157602455270097
 GameObject:
   m_ObjectHideFlags: 0

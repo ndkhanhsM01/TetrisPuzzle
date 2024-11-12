@@ -805,6 +805,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1206e8249c8cf674d914d8fe7f683873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableOnAwake: 1
+  disableOnHide: 1
   setting:
     introDuration: 0
     outroDuration: 0
@@ -1854,6 +1856,7 @@ GameObject:
   - component: {fileID: 3953815928205431426}
   - component: {fileID: 84783252952549791}
   - component: {fileID: 1984037425535685943}
+  - component: {fileID: 4951290355265282016}
   m_Layer: 5
   m_Name: Main
   m_TagString: Untagged
@@ -1920,6 +1923,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4951290355265282016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7323681297662292009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbcdc9a0843f08849a3f7aeebbcd8b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  duration: 0.25
+  ease: 27
+  startValue: {x: 0, y: 0, z: 0}
+  endValue: {x: 1, y: 1, z: 1}
 --- !u!1 &7334991053209795592
 GameObject:
   m_ObjectHideFlags: 0

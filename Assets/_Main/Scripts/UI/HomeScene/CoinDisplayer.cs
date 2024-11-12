@@ -20,6 +20,7 @@ public class CoinDisplayer : MonoBehaviour
         DataManager.OnLoadLocalSuccess += OnLoadLocalSuccess;
         EventsCenter.OnCoinChanged += OnCoinChanged;
 
+        LoadCurCoin();
 #if ENABLE_CHEAT
         btnCheat.AddListener(OnClick_CheatCoin);
 #endif
@@ -38,9 +39,7 @@ public class CoinDisplayer : MonoBehaviour
 
     private void OnSceneLoaded()
     {
-        if (!DataManager.Instance) return;
-
-        OnCoinChanged(DataManager.Instance.Coin);
+        LoadCurCoin();
     }
 
     private void OnLoadLocalSuccess(LocalData data)
@@ -65,5 +64,12 @@ public class CoinDisplayer : MonoBehaviour
     private void OnClick_CheatCoin()
     {
         DataManager.Instance.Coin += 1000;
+    }
+
+    private void LoadCurCoin()
+    {
+        if (!DataManager.Instance || DataManager.Instance.LocalData == null) return;
+
+        OnCoinChanged(DataManager.Instance.Coin);
     }
 }

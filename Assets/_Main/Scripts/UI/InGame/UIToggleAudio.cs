@@ -22,6 +22,8 @@ public class UIToggleAudio: MonoBehaviour
     {
         button.onClick.AddListener(Click_Toggle);
         DataManager.OnLoadLocalSuccess += OnDataLoaded;
+
+        LoadCurValue();
     }
 
     private void OnDisable()
@@ -39,6 +41,25 @@ public class UIToggleAudio: MonoBehaviour
                 break;
             case 
                 AudioType.SoundFX: isActive = localData.isPlaySoundFX;
+                break;
+        }
+
+        UpdateUI();
+    }
+
+    private void LoadCurValue()
+    {
+        if (!DataManager.Instance || DataManager.Instance.LocalData == null) return;
+
+        var localData = DataManager.Instance.LocalData;
+        switch (type)
+        {
+            case AudioType.Music:
+                isActive = localData.isPlayMusic;
+                break;
+            case
+        AudioType.SoundFX:
+                isActive = localData.isPlaySoundFX;
                 break;
         }
 
