@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class UserRanking_Respone
 {
     [JsonProperty("ranking")] public int Ranking;
-    [JsonProperty("top10")] public List<UserRanking> Top10;
+    [JsonProperty("top10")] public List<UserInfo> Top10;
 }
 
 [System.Serializable]

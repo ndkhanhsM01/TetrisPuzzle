@@ -2,66 +2,60 @@ using MLib;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 
 [CreateAssetMenu(fileName = "FakeDataUsers", menuName = "Tetris Setup/Fake Data Users")]
 public class FakeDataUsers: ScriptableObject
 {
     [SerializeField] private string[] randomNames;
-    [SerializeField] private UserRanking[] datas;
 
-    public UserRanking[] Datas => datas;
-    public void Set(int index, UserRanking data)
+    public bool CheckInTop10(UserInfo userRanking)
     {
-        datas[index] = data;
+        return false;
+/*        if (RankManager.Instance == null) return false;
+
+        var datas = RankManager.Instance.Data.AllUsers;
+        UserInfo rankLowest = datas[datas.Count - 1];
+
+        return userRanking.score >= rankLowest.score;*/
     }
 
-    public UserRanking Get(int index)
+    public async UniTask<List<UserInfo>> SpawnNewFakeList(string namePlayer, int scorePlayer, int amount)
     {
-        return datas[index];
-    }
+        List<UserInfo> datas = new();
 
-    public bool CheckInTop10(UserRanking userRanking)
-    {
-        UserRanking rankLowest = datas[datas.Length - 1];
-
-        return userRanking.score >= rankLowest.score;
-    }
-
-#if UNITY_EDITOR
-    [MButton]
-    public void RandomDatas()
-    {
-        int amount = 10;
-        datas = new UserRanking[amount];
-
-        int scoreStart = 9600;
-        int curTime = (int) TimeHelper.UnixTimeNow;
-        int rangeTime = 604800;
-        Vector2 stepRange = new Vector2(2000, 3000);
-        Vector2 timeRange = new Vector2(curTime - rangeTime, curTime);
-
-        int indexLast = datas.Length - 1;
-        for(int i=0; i<amount; i++)
+        UserInfo playerInfo = new UserInfo()
         {
+            id = 0,
+            name = namePlayer,
+            score = scorePlayer
+        };
+        datas.Add(playerInfo);
+
+        //
+        int scoreStart = 9600;
+        int preScore = 0;
+        Vector2 stepRange = new Vector2(2000, 3000);
+
+        for(int i=amount; i>0; i--)
+        {
+            await UniTask.DelayFrame(1);
             string randomName = randomNames.GetRandom();
-            int index = indexLast - i;      // go to from small score to higher
-            double time = Random.Range(timeRange.x, timeRange.y);
 
-            int preIndex = Mathf.Clamp(index + 1, 0, indexLast);
             int score = scoreStart;
-            if (datas[preIndex] != null) score = datas[preIndex].score;
-            score += Random.Range((int)stepRange.x, (int)stepRange.y);
+            score += preScore * i + Random.Range((int)stepRange.x, (int)stepRange.y);
 
-            UserRanking userRanking = new UserRanking()
+            UserInfo userRanking = new UserInfo()
             {
-                id = (int) time,
+                id = i,
                 name = randomName,
-                score = score,
-                timestamp = time
+                score = score
             };
 
-            datas[index] = userRanking;
+            preScore = score;
+            datas.Add(userRanking);
         }
+
+        return datas;
     }
-#endif
 }

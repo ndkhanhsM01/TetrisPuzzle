@@ -14,7 +14,7 @@ public class PlayerScoreItem: MonoBehaviour
     [SerializeField] private TMP_Text tmpTime;
     [SerializeField] private TMP_Text tmpScore;
 
-    private UserRanking playerRanking;
+    private UserInfo playerRanking;
     private void OnEnable()
     {
         EventsCenter.OnUserNameChanged += OnNameChanged;
@@ -30,7 +30,7 @@ public class PlayerScoreItem: MonoBehaviour
         tmpName.text = newName;
     }
 
-    public void Setup(int index, UserRanking playerRanking)
+    public void Setup(int index, UserInfo playerRanking)
     {
         if (playerRanking == null) return;
 

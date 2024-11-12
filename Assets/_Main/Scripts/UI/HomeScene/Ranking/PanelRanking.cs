@@ -20,8 +20,8 @@ public class PanelRanking : MPanel
     [SerializeField] private UserScoreItem[] scoreItems_Top7;
 
     private int indexPlayer;
-    private UserRanking playerRanking;
-    private List<UserRanking> datasUser;
+    private UserInfo playerRanking;
+    private List<UserInfo> datasUser;
 
     private bool isLoaded = false;
     private void OnEnable()
@@ -71,7 +71,7 @@ public class PanelRanking : MPanel
         uiTryConnect.SetActive(false);
 
         var localData = DataManager.Instance.LocalData;
-        playerRanking = UserRanking.CreateNew(localData.userName, localData.highScore, localData.userID);
+        playerRanking = UserInfo.CreateNew(localData.userName, localData.highScore, localData.userID);
         indexPlayer = res.Ranking;
 
         datasUser = new();
@@ -84,10 +84,10 @@ public class PanelRanking : MPanel
         UpdateUI();
     }
 
-    private void SetUpFakeData(UserRanking playerRanking)
+    private void SetUpFakeData(UserInfo playerRanking)
     {
         datasUser = new();
-        datasUser.AddRange(fakeDataUsers.Datas);
+        //datasUser.AddRange(fakeDataUsers.Datas);
         datasUser.Add(playerRanking);
 
         if (fakeDataUsers.CheckInTop10(playerRanking))
@@ -110,7 +110,7 @@ public class PanelRanking : MPanel
 
         if(datasUser.Count > 0)
         {
-            List<UserRanking> list = new List<UserRanking>();
+            List<UserInfo> list = new List<UserInfo>();
             for (int i = 0; i < 3; i++)
             {
                 list.Add(datasUser[i]);
@@ -121,7 +121,7 @@ public class PanelRanking : MPanel
 
         if(datasUser.Count > 3)
         {
-            List<UserRanking> list = new List<UserRanking>();
+            List<UserInfo> list = new List<UserInfo>();
             for(int i=3; i<datasUser.Count; i++)
             {
                 list.Add(datasUser[i]);
@@ -130,7 +130,7 @@ public class PanelRanking : MPanel
         }
     }
 
-    private void SetupTop3(List<UserRanking> top3)
+    private void SetupTop3(List<UserInfo> top3)
     {
         for (int i = 0; i < scoreItems_Top3.Length; i++)
         {
@@ -144,7 +144,7 @@ public class PanelRanking : MPanel
         }
     }
 
-    private void SetupTop7(List<UserRanking> top7)
+    private void SetupTop7(List<UserInfo> top7)
     {
         for (int i = 0; i < scoreItems_Top7.Length; i++)
         {
